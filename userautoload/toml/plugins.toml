@@ -45,6 +45,9 @@ hook_add = '''
 # https://github.com/justinmk/vim-sneak
 [[plugins]]
 repo = 'justinmk/vim-sneak'
+hook_add = '''
+  let g:sneak#label = 1
+'''
 
 [[plugins]]
 repo = 'tomtom/tcomment_vim'

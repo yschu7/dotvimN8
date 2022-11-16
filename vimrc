@@ -20,7 +20,7 @@ if dein#load_state(s:dein_dir)
     call dein#add('roxma/vim-hug-neovim-rpc')
   endif
 
-  " plugins toml directory: ~/.vim/userautoload/dein
+  " plugins toml directory: ~/.vim/userautoload/toml
   call dein#load_toml('~/.vim/userautoload/toml/plugins.toml', {'lazy': 0})
   call dein#load_toml('~/.vim/userautoload/toml/lazy.toml', {'lazy': 1})
 

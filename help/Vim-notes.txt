@@ -77,7 +77,7 @@ Cheat Sheet                                                 *CheatSheet*
         ```
         $ git add .
         $ git commit -m 'Commit notes...'
-        $ git push -u origin master
+        $ git push -u origin main
         ```
     2. 在其他電腦的同步
         `$ git pull origin`
@@ -89,10 +89,11 @@ Cheat Sheet                                                 *CheatSheet*
 * vim plugin的安裝與維護：
     1. vim plugins初次安裝步驟
         ```
-        $ git clone git@github.com:yschu7/dotvimDein.git ~/.vim
+        $ git clone git@github.com:yschu7/dotvimN8.git ~/.vim
         $ curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
         $ sh ./installer.sh ~/.vim/dein
-        $ 再次啓動 vim 時會重新安裝所有的 plugins 所以要等待...
+        接下來執行第3、4點的符號連結設定後，
+        再次啓動 vim 時會重新安裝所有的 plugins 所以要等待...
         ```
     2. 更新plugins
         + 在vim中按快捷鍵：
@@ -102,6 +103,11 @@ Cheat Sheet                                                 *CheatSheet*
        ```
        $ cd ~/.config
        $ ln -s ~/.vim nvim
+       ```
+    4. vim 8 的設定 (~/.vimrc)
+       ```
+       $ cd
+       $ ln -s ~/.vim/vimrc .vimrc
        ```
 <!--- }}} -->
 

@@ -1,0 +1,60 @@
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+depends = ['neomru.vim']
+hook_add = '''
+  source ~/.vim/userautoload/conf/denite.vim
+'''
+hook_post_source = '''
+  source ~/.vim/userautoload/conf/denite_post.vim
+'''
+on_cmd = ['Denite']
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+hook_add = '''
+  let g:deoplete#enable_at_startup = 1
+  set completeopt+=noinsert
+'''
+on_i = [1]
+
+[[plugins]]
+repo = 'vim-ruby/vim-ruby'
+on_ft = ['ruby']
+
+[[plugins]]
+repo = 'tpope/vim-endwise'
+
+[[plugins]]
+repo = 'hail2u/vim-css3-syntax'
+on_ft = ['css','scss','sass']
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = ['toml']
+
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+on_ft = ['markdown']
+
+[[plugins]]
+repo = 'elzr/vim-json'
+hook_add = '''
+  let g:vim_json_syntax_conceal = 0
+'''
+on_ft = ['json']
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+hook_add = '''
+  source ~/.vim/userautoload/conf/nerdtree.vim
+'''
+on_cmd = ['NERDTreeToggle']
+
+[[plugins]]
+repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
+depends = 'nerdtree'
+
+

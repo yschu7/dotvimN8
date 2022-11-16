@@ -1,0 +1,10 @@
+dein/
+sessions/
+shada/
+.DS_Store
+.netrwhist
+.undo
+.tmp
+.backup
+.unite
+*.swp

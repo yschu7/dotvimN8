@@ -1,0 +1,88 @@
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+depends = ['/vim-airline-themes']
+
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+hook_add = '''
+  set laststatus=2
+  let g:airline_powerline_fonts = 1
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#buffer_idx_mode = 1
+  let g:airline#extensions#whitespace#mixed_indent_algo = 1
+  let g:airline_theme = 'dark'
+'''
+
+[[plugins]]
+repo = 'lifepillar/vim-solarized8'
+
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+hook_add = '''
+" Use # to get a variable interpolation (inside of a string)}
+" ysiw#   Wrap the token under the cursor in #{}
+let g:surround_35  = "#{\r}"
+
+" Shortcuts for common surrounds
+map <leader>y# ysiw#
+'''
+
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
+hook_add = '''
+  let g:tcomment_maps = 1
+  if !exists('g:tcomment_types')
+      let g:tcomment_types = {}
+  endif
+  let g:tcomment_types['eruby'] = '<%# %s %>'
+  let g:tcomment_types['erb'] = '<%# %s %>'
+  let g:tcomment_types['scss'] = '/* %s */'
+  let g:tcomment_types['pug'] = '// %s'
+  let g:tcomment_types['toml'] = '# %s'
+'''
+
+[[plugins]]
+repo = 'kana/vim-arpeggio'
+hook_add = '''
+  call arpeggio#load()
+  call arpeggio#map('i', '', 0, 'jk', '<Esc>')
+'''
+
+[[plugins]]
+repo = 'junegunn/fzf'
+build = './install --bin'
+merged = '0'
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+depends = 'fzf'
+hook_add = '''
+  command! -bang -nargs=* Rg
+    \ call fzf#vim#grep(
+    \   'rg --line-number --no-heading '.shellescape(<q-args>), 0,
+    \   fzf#vim#with_preview({'options': '--exact --reverse'}, 'right:50%:wrap'))
+'''
+
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+hook_add = '''
+  let g:indent_guides_enable_on_vim_startup=1
+  let g:indent_guides_auto_colors = 0
+  let g:indent_guides_exclude_filetypes = ['help', 'vimfiler']
+'''
+
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+build = 'yarn install --frozen-lockfile'
+merged = '0'
+rev = 'master'
+hook_add = 'source ~/.vim/userautoload/conf/coc-config.vim'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+hook_add = '''
+  let g:airline#extensions#branch#enabled = 1
+'''

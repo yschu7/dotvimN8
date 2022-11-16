@@ -1,0 +1,20 @@
+{
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "workspace.rootPatterns": ["go.work", ".git/", ".hg/", ".projections.json"],
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "usePlaceholders": true
+      },
+     "workspace.workspaceFolderCheckCwd": true
+    }
+  },
+  "go.goplsOptions":{
+    "completeUnimported": true
+  },
+  "coc.preferences.colorSupport": false
+}
+
+// vim: filetype=jsonc

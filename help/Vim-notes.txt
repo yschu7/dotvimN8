@@ -92,6 +92,7 @@ Cheat Sheet                                                 *CheatSheet*
         $ git clone git@github.com:yschu7/dotvimDein.git ~/.vim
         $ curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
         $ sh ./installer.sh ~/.vim/dein
+        $ 再次啓動 vim 時會重新安裝所有的 plugins 所以要等待...
         ```
     2. 更新plugins
         + 在vim中按快捷鍵：

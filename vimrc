@@ -21,8 +21,8 @@ if dein#load_state(s:dein_dir)
   endif
 
   " plugins toml directory: ~/.vim/userautoload/dein
-  call dein#load_toml('~/.vim/userautoload/dein/plugins.toml', {'lazy': 0})
-  call dein#load_toml('~/.vim/userautoload/dein/lazy.toml', {'lazy': 1})
+  call dein#load_toml('~/.vim/userautoload/toml/plugins.toml', {'lazy': 0})
+  call dein#load_toml('~/.vim/userautoload/toml/lazy.toml', {'lazy': 1})
 
   call dein#end()
   call dein#save_state()

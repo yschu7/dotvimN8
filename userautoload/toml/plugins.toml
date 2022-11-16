@@ -17,7 +17,7 @@ hook_add = '''
 repo = 'lifepillar/vim-solarized8'
 
 [[plugins]]
-repo = 'ryanoasis/vim-devicons'
+repo = 'tpope/vim-endwise'
 
 [[plugins]]
 repo = 'tpope/vim-surround'
@@ -29,6 +29,22 @@ let g:surround_35  = "#{\r}"
 " Shortcuts for common surrounds
 map <leader>y# ysiw#
 '''
+
+[[plugins]]
+repo = 'tpope/vim-repeat'
+
+[[plugins]]
+repo = 'tpope/vim-unimpaired'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+hook_add = '''
+  let g:airline#extensions#branch#enabled = 1
+'''
+
+# https://github.com/justinmk/vim-sneak
+[[plugins]]
+repo = 'justinmk/vim-sneak'
 
 [[plugins]]
 repo = 'tomtom/tcomment_vim'
@@ -75,14 +91,42 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'preservim/nerdtree'
+hook_add = '''
+  source ~/.vim/userautoload/conf/nerdtree.vim
+'''
+
+[[plugins]]
+repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
+depends = 'nerdtree'
+
+[[plugins]]
+repo = 'Xuyuanp/nerdtree-git-plugin'
+depends = 'vim-nerdtree-syntax-highlight'
+hook_add = '''
+  let g:NERDTreeGitStatusUseNerdFonts = 1
+  let g:NERDTreeGitStatusIndicatorMapCustom = {
+                \ 'Modified'  :'✹',
+                \ 'Staged'    :'✚',
+                \ 'Untracked' :'✭',
+                \ 'Renamed'   :'➜',
+                \ 'Unmerged'  :'═',
+                \ 'Deleted'   :'✖',
+                \ 'Dirty'     :'✗',
+                \ 'Ignored'   :'☒',
+                \ 'Clean'     :'✔︎',
+                \ 'Unknown'   :'?',
+                \ }
+'''
+
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+depends = 'nerdtree-git-plugin'
+
+[[plugins]]
 repo = 'neoclide/coc.nvim'
 build = 'yarn install --frozen-lockfile'
 merged = '0'
 rev = 'master'
 hook_add = 'source ~/.vim/userautoload/conf/coc-config.vim'
 
-[[plugins]]
-repo = 'tpope/vim-fugitive'
-hook_add = '''
-  let g:airline#extensions#branch#enabled = 1
-'''

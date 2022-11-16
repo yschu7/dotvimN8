@@ -25,9 +25,6 @@ repo = 'vim-ruby/vim-ruby'
 on_ft = ['ruby']
 
 [[plugins]]
-repo = 'tpope/vim-endwise'
-
-[[plugins]]
 repo = 'hail2u/vim-css3-syntax'
 on_ft = ['css','scss','sass']
 
@@ -45,16 +42,5 @@ hook_add = '''
   let g:vim_json_syntax_conceal = 0
 '''
 on_ft = ['json']
-
-[[plugins]]
-repo = 'scrooloose/nerdtree'
-hook_add = '''
-  source ~/.vim/userautoload/conf/nerdtree.vim
-'''
-on_cmd = ['NERDTreeToggle']
-
-[[plugins]]
-repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
-depends = 'nerdtree'
 
 

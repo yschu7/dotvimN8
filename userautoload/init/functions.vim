@@ -68,52 +68,10 @@ endfunction
 command! QuickSpellingFix call QuickSpellingFix()
 nnoremap <silent> <leader>z :QuickSpellingFix<CR>
 
-" --------------------------------------------------------
-" Convert Ruby 1.8 hash rockets to 1.9 JSON style hashes.
-" From: http://git.io/cxmJDw
-" Note: Defaults to the entire file unless in visual mode.
-" --------------------------------------------------------
-
-command! -bar -range=% NotRocket execute
-  \'<line1>,<line2>s/:\(\w\+\)\s*=>/\1:/e' . (&gdefault ? '' : 'g')
-
-" ---------------------------------------
-" Convert .should rspec syntax to expect.
-" From: https://coderwall.com/p/o2oyrg
-" ---------------------------------------
-command! -bar -range=% Expect execute
-  \'<line1>,<line2>s/\(\S\+\).should\(\s\+\)==\s*\(.\+\)' .
-  \'/expect(\1).to\2eq(\3)/e' .
-  \(&gdefault ? '' : 'g')
-
-" --------------------------
-" Strip Trailing White Space
-" --------------------------
-" From http://vimbits.com/bits/377
-" Preserves/Saves the state, executes a command, and returns to the saved state
-function! Preserve(command)
-  " Preparation: save last search, and cursor position.
-  let _s=@/
-  let l = line(".")
-  let c = col(".")
-  " Do the business:
-  execute a:command
-  " Clean up: restore previous search history, and cursor position
-  let @/=_s
-  call cursor(l, c)
-endfunction
-function! StripTrailingWhiteSpaceAndSave()
-  :call Preserve("%s/\\s\\+$//e")<CR>
-  :write
-endfunction
-command! StripTrailingWhiteSpaceAndSave :call StripTrailingWhiteSpaceAndSave()<CR>
-nnoremap <silent> <leader>stw :silent! StripTrailingWhiteSpaceAndSave<CR>
-
 " -------------------------
 " Write Buffer if Necessary
 " -------------------------
 " Writes the current buffer if it's needed, unless we're the in QuickFix mode.
-
 function! WriteBufferIfNecessary()
   if &modified && !&readonly
     :write
@@ -126,7 +84,7 @@ function! CRWriteIfNecessary()
     " Execute a normal enter when in Quickfix list.
     execute "normal! \<enter>"
   else
-    WriteBufferIfNecessary
+    :WriteBufferIfNecessary
   endif
 endfunction
 
@@ -160,23 +118,23 @@ endfunction
 
 command! ListLeaders :call ListLeaders()
 
-function! CopyMatches(reg)
-  let hits = []
-  %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/ge
-  let reg = empty(a:reg) ? '+' : a:reg
-  execute 'let @'.reg.' = join(hits, "\n") . "\n"'
-endfunction
-command! -register CopyMatches call CopyMatches(<q-reg>)
-
-function! YankLineWithoutNewline()
-  let l = line(".")
-  let c = col(".")
-  normal ^y$
-  " Clean up: restore previous search history, and cursor position
-  call cursor(l, c)
-endfunction
-
-nnoremap <silent>yl :call YankLineWithoutNewline()<CR>
+" function! CopyMatches(reg)
+"   let hits = []
+"   %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/ge
+"   let reg = empty(a:reg) ? '+' : a:reg
+"   execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+" endfunction
+" command! -register CopyMatches call CopyMatches(<q-reg>)
+"
+" function! YankLineWithoutNewline()
+"   let l = line(".")
+"   let c = col(".")
+"   normal ^y$
+"   " Clean up: restore previous search history, and cursor position
+"   call cursor(l, c)
+" endfunction
+"
+" nnoremap <silent>yl :call YankLineWithoutNewline()<CR>
 
 " Show the word frequency of the current buffer in a split.
 " from: http://vim.wikia.com/wiki/Word_frequency_statistics_for_a_file

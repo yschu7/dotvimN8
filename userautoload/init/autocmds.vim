@@ -84,6 +84,7 @@ if has("autocmd")
     au FileType python,swift,java,kotlin setlocal fdm=indent sw=4 ts=4 sts=4
 
     au FileType markdown setlocal fdm=marker ts=4 sw=4 sts=4 nospell
+    au FileType go setlocal fdm=indent ts=4 sw=4 sts=0 noexpandtab
 
     au FileType ruby,python,java,swift,javascript,php,rust,sh,vim,go setlocal matchpairs-=<:>
     au FileType c,cpp,plsql,coffee,lua,kotlin,groovy setlocal matchpairs-=<:>
@@ -150,10 +151,8 @@ if has("autocmd")
     autocmd FileType julia inoremap <buffer><F5> <ESC>:WriteBufferIfNecessary<CR>:!julia ./%<CR>
     autocmd FileType julia nmap <buffer> ? <Plug>(JuliaDocPrompt)
 
-    autocmd FileType go nnoremap <buffer><F5> <ESC>:WriteBufferIfNecessary<CR>:GoRun %<CR>
-    autocmd FileType go inoremap <buffer><F5> <ESC>:WriteBufferIfNecessary<CR>:GoRun %<CR>
-    " clear :GoRun output
-    autocmd FileType go nnoremap <buffer><silent> <leader>c :WriteBufferIfNecessary<CR>:wincmd h<CR>:q<CR>
+    autocmd FileType go nnoremap <buffer><F5> <ESC>:WriteBufferIfNecessary<CR>:!go run %<CR>
+    autocmd FileType go inoremap <buffer><F5> <ESC>:WriteBufferIfNecessary<CR>:!go run %<CR>
 
     " [Buffer-Local](http://learnvimscriptthehardway.stevelosh.com/chapters/11.html)
     " tmux run script (Split screen to show result)

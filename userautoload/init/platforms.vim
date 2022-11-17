@@ -1,7 +1,6 @@
-" ----------------------------------------
+" -------------------------------
 " Platform Specific Configuration
-" ----------------------------------------
-
+" -------------------------------
 let g:dotvim_dir = expand("$HOME") . '/.vim'
 
 if has('win32') || has('win64')
@@ -23,7 +22,6 @@ if has('win32') || has('win64')
   let g:dotvim_dir = expand("$HOME") . '\vimfiles'
 elseif has('gui_macvim')
   " MacVim
-
   " Custom Source Code font for Powerline
   " From: https://github.com/Lokaltog/powerline-fonts
   set guifont=Source\ Code\ Pro\ for\ Powerline:h12
@@ -37,12 +35,3 @@ elseif has('gui_macvim')
   set macmeta
 endif
 
-" if has('macunix') || has('mac')
-"   " Fix meta key for Mac
-"   let c='a'
-"   while c <= 'z'
-"     exec "set <A-".c.">=\e".c
-"     exec "imap \e".c." <A-".c.">"
-"     let c = nr2char(1+char2nr(c))
-"   endw
-" endif

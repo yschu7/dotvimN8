@@ -22,4 +22,7 @@ if has('nvim')
   tnoremap <expr> <A-r> '<C-\><C-n>"'.nr2char(getchar()).'pi'
   " highlighting a selection on yank
   au TextYankPost * silent! lua vim.highlight.on_yank()
+else
+  " Vim
+  runtime macros/matchit.vim
 endif

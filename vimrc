@@ -18,6 +18,7 @@ if dein#load_state(s:dein_dir)
   if !has('nvim')
     call dein#add('roxma/nvim-yarp')
     call dein#add('roxma/vim-hug-neovim-rpc')
+    call dein#add('machakann/vim-highlightedyank')
   endif
 
   " plugins toml directory: ~/.vim/userautoload/toml

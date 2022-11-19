@@ -43,4 +43,10 @@ hook_add = '''
 '''
 on_ft = ['json']
 
+[[plugins]]
+repo = 'JuliaEditorSupport/julia-vim'
+hook_add = '''
+  let g:latex_to_unicode_keymap = 1
+'''
+on_ft = ['jl']
 

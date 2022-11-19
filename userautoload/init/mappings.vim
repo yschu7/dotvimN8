@@ -71,9 +71,6 @@ nnoremap <silent> <leader>/ :nohlsearch<CR>
 " list and select buffer
 nnoremap <silent> <leader>d :bd<CR>
 
-" Close preview buffer
-nnoremap <silent> <leader>x :pclose<CR>
-
 " ,v brings up my .vimrc
 " ,V reloads it -- making all changes active (have to save first)
 noremap <silent> <leader>v :sp $MYVIMRC<CR><C-W>_

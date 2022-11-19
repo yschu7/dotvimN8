@@ -14,7 +14,7 @@ nnoremap <silent> [denite]b :<C-U>Denite buffer<CR>
 nnoremap <silent> [denite]g :<C-U>DeniteCursorWord grep<CR>
 
 " denite
-"  <C-o> open Denite-file-buffer-list
+"    <C-o> open Denite-file-buffer-list
 "    <Esc>      close Denite-file-buffer-list
 "    <Space>    select multiple files/buffers
 "    <CR>       open files/buffers

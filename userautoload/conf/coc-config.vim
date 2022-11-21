@@ -1,4 +1,4 @@
-" install coc_extensions
+" install coc_extensions, :CocList extensions
 let g:coc_global_extensions = [
 \ 'coc-go',
 \ ]

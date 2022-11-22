@@ -1,7 +1,20 @@
 " install coc_extensions, :CocList extensions
 let g:coc_global_extensions = [
 \ 'coc-go',
+\ 'coc-golines',
+\ 'coc-julia',
+\ 'coc-pyright',
+\ 'coc-solargraph',
+\ 'coc-lists',
+\ 'coc-sh',
+\ 'coc-highlight',
+\ 'coc-clangd',
 \ ]
+" dependency:
+" go install github.com/segmentio/golines@latest
+" gem install solargraph
+" gem install ruby-lsp
+" sudo apt install clangd
 
 " May need for vim (not neovim) since coc.nvim calculate byte offset by count
 " utf-8 byte sequence.

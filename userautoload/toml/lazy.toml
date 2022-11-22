@@ -25,6 +25,8 @@ on_ft = ['json']
 repo = 'JuliaEditorSupport/julia-vim'
 hook_add = '''
   let g:latex_to_unicode_keymap = 1
+  noremap <expr> <F7> LaTeXtoUnicode#Toggle()
+  noremap! <expr> <F7> LaTeXtoUnicode#Toggle()
 '''
-on_ft = ['jl']
+on_ft = ['julia']
 

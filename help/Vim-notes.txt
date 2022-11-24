@@ -192,9 +192,10 @@ gg      Go to the top of the buffer
 <!--- }}} -->
 
 <!--- Basic Misc {{{ -->
-### Basic Misc                                              *BasicMisc*
+# -----------------------------------------------------------------------
+# Basic Misc                                                  *BasicMisc*
+# -----------------------------------------------------------------------
 
-```
 V       Enter Visual mode (select lines)
 v       Characterwise Visual mode (select characters)
 y       Yank (copy) selected text
@@ -217,7 +218,7 @@ $vi -N example.conf
 n Search again
 N Search backwards
 
-* search word under cursor
+* search word under cursor |Denite|
 
 :%s/search/replace/gc   Search & Replace    c confirmation
 
@@ -239,18 +240,19 @@ Transform vim into hex editor: xxd 是一個外部命令
 :%!xxd -r   (ascii mode)
 
 Control you insertions (under insert mode)
-可以在insert mode之下執行的命令鍵
+在插入模式之下執行的命令鍵
 Ctrl-Y  duplicates what's in the same column on the preceding line
 Ctrl-E  duplicates what's in the same column on the following line
 Ctrl-A  inserts again whatever the most-recent inserted text was
-Ctrl-R= evaluates and expression register(=) and inserts the result
-        除了使用"=暫存器之外，也可使用其他任何暫存器(插入該暫存器內容)
+Ctrl-R= Insert the contents of a register (= expression register)
+        運算式暫存器特別的是讓你可以輸入運算式，將其求值結果插入。
+        插入該暫存器內容，此例為 =，事實上任何暫存器都可以(:regis)
 Ctrl-T  inserts a tab at the start of the line
-        (without move the inserting point)
+        (without move the inserting point)，在插入模式下游標不動列前加入TAB
 Ctrl-D  deletes a tab at the start of the line
-        (without move the inserting point)
+        (without move the inserting point)，在插入模式下游標不動列前刪除TAB
 Ctrl-V  inserts the next character verbatim
-        (even if it's normally a control character)
+        (even if it's normally a control character)，通常用於插入控制字元
 Ctrl-W  deletes the word preceding the cursor
 Ctrl-O  takes you back to normal mode for one command, which is handy,
         e.g. to clean the rest of the line: ^OD
@@ -288,68 +290,70 @@ noremap <down> <nop>
 設定command mode下使用autocomplete時(按<TAB>)，以menu方式提示可能的單字的選項
 :set wildmenu
 
-爲編輯檔案內容加密
+爲編輯檔案內容加密 （Vim Only）
 :set cm=blowfish2   (設定加密演算法，預設爲zip)
 :X                  (輸入加密密碼)
 :w                  (儲存加密內容)
 
 :help cryptmethod
-```
 <!--- }}} -->
 
 <!--- Configuration {{{ -->
-Configuration                                               *Configuration*
-=============
+# -----------------------------------------------------------------------
+# Configuration                                           *Configuration*
+# -----------------------------------------------------------------------
+
 * ~/.vimrc    Most settings go here. Shared terminal and graphical options.
 * ~/.gvimrc   Graphic-only settings (font, windows size)
 * ~/.vim/     Plugins, language-specific options, color schemes
 
-### 設定：（老方法）
+# 設定：（老方法）
 * 所有檔案放在$HOME/bin/dotvim目錄內。
 * 設定檔連結到存放目錄的相對檔案、目錄：
+  ```
+  > cd
+  > ln -nfs ~/bin/dotvim .vim
+  > ln -nfs ~/bin/dotvim/vimrc .vimrc
+  > ln -nfs ~/bin/dotvim/gvimrc .gvimrc
+  ```
 
-```
-> cd
-> ln -nfs ~/bin/dotvim .vim
-> ln -nfs ~/bin/dotvim/vimrc .vimrc
-> ln -nfs ~/bin/dotvim/gvimrc .gvimrc
-```
-
-### 設定：（新方法）
+# 設定：（新方法）
 * 採用 |dein| 方式管理Plugins，配置目錄參考下面：
 * ~/.vim/README.md
-
+* ~/.vim/vimrc
 <!--- }}} -->
 
 <!--- Set,Show,Reset {{{ -->
-### 設定、顯示、重設（SET,SHOW,RESET）                      *SetShowReset*
+# -----------------------------------------------------------------------
+# 設定、顯示、重設（SET,SHOW,RESET）                       *SetShowReset*
+# -----------------------------------------------------------------------
 
-```
 有些選項設定值爲on、off，例如：
-:set list           Turn a boolean value on (顯示TAB,EOL)
-:set nolist         Turn a boolean value off
-:set list?          Show current value
-:set list&          Reset to default value
-:set list!          Toggle value (list <-> nolist)
+:set list            Turn a boolean value on (顯示TAB,EOL)
+:set nolist          Turn a boolean value off
+:set list?           Show current value
+:set list&           Reset to default value
+:set list!           Toggle value (list <-> nolist)
 
 有些選項則爲設定值如：數字、字串
-:set softtabstop=2  Set a value
-:set softtabstop    Show a value
-:set softtabstop?   Show a value(same as above, two ways)
-:set softtabstop&   Reset to default
+:set softtabstop=2   Set a value
+:set softtabstop     Show a value
+:set softtabstop?    Show a value(same as above, two ways)
+:set softtabstop&    Reset to default
 
-Vim大部分長指令都有縮寫，例如softtabstop縮寫爲sts
+Vim 大部分長指令都有縮寫，例如 softtabstop 縮寫爲sts
 
-:verbose set wildmode?   查看wildmode的最後設定者。
-                         如果不是預設值時，可以顯示設定它的檔案。
+:verbose set spellfile?   查看 spellfile 的最後設定者。
+                          如果不是預設值時，可以顯示設定它的檔案。
 
-:set                顯示選項的設定值與其系統預設值不同者。
-:options            開啓window顯示所有選項，按Enter瀏覽、:q結束。
+:set                 顯示選項的設定值與其系統預設值不同者。
+:options             開啓window顯示所有選項，按Enter瀏覽、:q結束。
 
-:echo &rtp          顯示option(rtp)的目前設定值，類似:set rtp? (runtimepath)
-:echo has('ruby')   顯示VIM是否有包含某個功能特性
-:h +feature-list    顯示VIM所有包含的功能特性
-:ver                顯示VIM版本詳細訊息，包含編譯、連結方式
+:echo &rtp           顯示option(rtp)的目前設定值，類似:set rtp? (runtimepath)
+:echo has('ruby')    顯示VIM是否有包含某個功能特性
+:if executalbe('ag') 測試是否存在執行檔案 ag
+:h +feature-list     顯示VIM所有包含的功能特性
+:ver                 顯示VIM版本詳細訊息，包含編譯、連結方式
 
 ModeLines - Include a comment with file-specific configuration
             must be within the first/last 5 lines of the file
@@ -357,14 +361,14 @@ ModeLines - Include a comment with file-specific configuration
             使用comment的型式，將特定檔案的設定參數寫入其中。
             預設在檔案的最前或最後5列，其設定的參數才有效果。
 :h modeline
-```
 <!--- }}} -->
 
 <!--- Help {{{ -->
-### Help <F1>                                               *Help*
+# ----------------------------------------------------------------------
+# Help <F1> 顯示輔助訊息                                          *Help*
+# ----------------------------------------------------------------------
 
-```
-:help [subject] or :h [subject]
+:help [subject] 或 :h [subject]
 :h normal-index
 :h <topic><TAB>     press <TAB> for autocompletion
 
@@ -382,12 +386,10 @@ Ctrl-]  (jump to tag)       hyperlink |help subject|
 Ctrl-T  (pop tag) or Ctrl-O
 Ctrl-[  same as Ctrl-T
 ZZ, gz, :bd (leave help system)
-```
 
-### Help Prefix
+# Help Prefix 前綴
 
-```
-輔助命令的各種寫法範例：
+輔助命令的各種前綴寫法範例：
 
 What                   Prefix          Example
 ------------------------------------------------------
@@ -403,7 +405,6 @@ Command-line editing   c               :h c_<Del>
                                        :h c_^n
 Vim command arguments  -               :h -r
 Options                '(both ends)    :h 'textwidth'
-```
 <!--- }}} -->
 
 <!--- Files {{{ -->
@@ -429,7 +430,7 @@ gf                Jump to file under cursor (goto file)
 
 檔案處理相關可以用的Plugins
 Visual  : |NERDTree|, Project (included within rails.vim)
-Text    : FuzzyFinder, CtrlP, |Unite|, |Denite|
+Text    : FuzzyFinder, CtrlP, |Denite|
 
 ```
 <!--- }}} -->
@@ -1845,10 +1846,8 @@ for the {pattern}.   遞迴搜尋符合樣式(若未指定目錄，預設爲當�
 ```
 ~/.vim/vundle_plugins/vim-airline.vim
 
-* AirlineTheme murmur   改變airline狀態列的主題
-* 設定選擇畫面改變Airline主題(~/.vim/pref/setcolors.vim)
-* <leader> ia
-
+* AirlineTheme murmur   改變airline狀態列的配色方案
+* 可與 |base16-vim| 配色方案搭配
 ```
 <!--- }}} -->
 
@@ -1997,44 +1996,10 @@ visual mode … cp : select with visual mode then copy to system clipboard
 ```
 <!--- }}} -->
 
-<!--- unite.vim {{{ -->
-###[unite.vim](https://github.com/Shougo/unite.vim)             *Unite*
-
-```
-~/.vim/vundle_plugins/unite.vim
-
-設定爲Vim 7.xx版本專用plugin, 與denite互斥
-
-:Unite file buffer
-:Unite fire_rec
-
-* <Leader> ff : file
-* <Leader> fF : file_rec
-* <Leader> fu : file_mru
-* <Leader> fd : directory_mru
-* <Leader> fp : registers
-* <Leader> fb : buffer
-
-操作指令：
-* q : 離開（normal mode）
-* \q : 離開(上一層)
-* \Q : 離開(全部)
-* ; : 刪除前面的1個字（輸入錯誤時更正用）
-* Space：選擇遊標所在的檔案
-* TAB：對所選擇的檔案操作（action）
-* a：同TAB (action)
-* Enter：將檔案開啓
-* Ctrl-j：進入normal mode，向下10列
-* Ctrl-k：進入normal mode，向上10列
-
-:help unite
-```
-<!--- }}} -->
 
 <!--- denite.nvim {{{ -->
-###[denite.nvim](https://github.com/Shougo/denite.nvim)        *Denite*
+# [denite.nvim](https://github.com/Shougo/denite.nvim)         *Denite*
 
-```
 ~/.vim/userautoload/conf/denite.vim
 ~/.vim/userautoload/conf/denite_post.vim
 
@@ -2067,46 +2032,38 @@ visual mode … cp : select with visual mode then copy to system clipboard
 * Ctrl-k: 向後一頁(Ctrl-b)
 
 :help denite
-```
 <!--- }}} -->
 
-<!--- base16.vim {{{ -->
-###[Base16.vim](https://github.com/chriskempson/base16-vim)
-```
-~/.vim/vundle_plugins/Base16.vim
+<!--- base16-vim {{{ -->
+# [base16-vim](https://github.com/chriskempson/base16-vim)   *base16-vim*
 
-* iTerm2配合的[themes](https://github.com/chriskempson/base16-iterm2)
+配色方案
 
-* <leader> ic 選擇主題
-* :colorscheme base16-<TAB>
+* iTerm2 配合的 [themes](https://github.com/tinted-theming/base16-iterm2)
+
+* :colorscheme base16-<TAB>   自動補全
 * :set cursorline or nocursorline
 * :set bg=dark or bg=light
-
-```
 <!--- }}} -->
 
 <!--- FIGlet.vim {{{ -->
-###[FIGlet.vim](https://github.com/yschu7/FIGlet.vim)
-```
-~/.vim/vundle_plugins/FIGlet.vim
+# [FIGlet.vim](https://github.com/yschu7/FIGlet.vim)
 
-* 由vimscripts:[FIGlet.vim](http://www.vim.org/scripts/script.php?script_id=3359)
+* 來源 [FIGlet.vim](http://www.vim.org/scripts/script.php?script_id=3359)
 
 * 使用範例及說明在程式FIGlet.vim中
+  ~/.vim/dein/repos/github.com/yschu7/FIGlet.vim/plugin/FIGlet.vim
+
 * 顯示可用字型名稱 :FIGletFontDemo
 * 選擇範圍後，執行轉換 :FIGlet 或 使用g@
 * 選擇字型(3-d) :FIGlet -f 3-d
-
-```
 <!--- }}} -->
 
 <!--- vim-devicons {{{ -->
-###[vim-devicons](https://github.com/ryanoasis/vim-devicons)
-```
-~/.vim/vundle_plugins/vim-devicons.vim
+# [vim-devicons](https://github.com/ryanoasis/vim-devicons)
 
-* 字型 [nerd-fonts](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts)
-* 下載 Dropbox/Software/iTerm2/newfonts.tgz
+* 下載 [nerd-fonts](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts)
+* 已經使用 Dropbox/Software/iTerm2/newfonts.tgz
 
 * MacOS: ~/Library/Fonts
 * Linux: ~/.local/share/fonts
@@ -2115,7 +2072,6 @@ visual mode … cp : select with visual mode then copy to system clipboard
 * 與Denite、NERDtree 共用時，它必須在最後啟動。
 
 :h devicons
-```
 <!--- }}} -->
 
 <!--- deoplete.nvim {{{ -->
@@ -2137,20 +2093,19 @@ visual mode … cp : select with visual mode then copy to system clipboard
 <!--- }}} -->
 
 <!--- vim-markdown {{{ -->
-###[vim-markdown](https://github.com/plasticboy/vim-markdown)
-```
+# [vim-markdown](https://github.com/plasticboy/vim-markdown)
+
 Syntax highlighting, matching rules and mappings for the original Markdown
 and extensions.
 
 ~/.vim/vundle_plugins/vim-markdown.vim
 
 :help vim-markdown
-```
 <!--- }}} -->
 
 <!--- fzf.vim {{{ -->
-###[fzf.vim](https://github.com/junegunn/fzf.vim)
-```
+# [fzf.vim](https://github.com/junegunn/fzf.vim)
+
 Things you can do with fzf and Vim.
 
 :Rg 搜尋樣式 : 顯示浮動視窗及preview
@@ -2161,7 +2116,6 @@ macOS:
 > brew install fzf
 > brew install ripgrep
 > brew install the_silver_searcher
-```
 <!--- }}} -->
 
 <!--- vim-fugitive {{{ -->

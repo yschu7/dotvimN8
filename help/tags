@@ -41,6 +41,7 @@ VimNotes	Vim-notes.txt	/*VimNotes*
 VisualMode	Vim-notes.txt	/*VisualMode*
 Window	Vim-notes.txt	/*Window*
 YankRegister	Vim-notes.txt	/*YankRegister*
+base16-vim	Vim-notes.txt	/*base16-vim*
 coc	Vim-notes.txt	/*coc*
 dein	Vim-notes.txt	/*dein*
 global	Vim-notes.txt	/*global*

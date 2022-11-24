@@ -49,8 +49,9 @@ Table of Contents                                           *VimNotes*
 =========================================================================
 
 <!--- CheetSheet {{{ -->
-Cheat Sheet                                                 *CheatSheet*
-===========
+# -----------------------------------------------------------------------
+# Cheat Sheet                                                *CheatSheet*
+# -----------------------------------------------------------------------
 
 * [Learn Vimscript the Hard Way](http://learnvimscriptthehardway.stevelosh.com/)
 * [Help Web version](http://blog.xuite.net/yschu/wretch/313272957)
@@ -115,7 +116,9 @@ Cheat Sheet                                                 *CheatSheet*
 <!--- }}} -->
 
 <!--- Basic Motion {{{ -->
-### Basic Motion                                          *BasicMotion*
+# -----------------------------------------------------------------------
+# Basic Motion                                              *BasicMotion*
+# -----------------------------------------------------------------------
 
     k             yy  Yank line (copy)
     ^
@@ -126,7 +129,7 @@ h <---> l         P   Paste above cursor
     j
 
 6l      Forward 6 letters      fN    Jump forward to first 'N'
-2j      Down 2 lines           3fN   Jump forward to third 'N'
+2j      Down 2 lines           2fN   Jump forward to second 'N'
 
 w       Forward one word       3w    Forward 3 words
 cw      Change word            3cw   Change 3 words
@@ -139,9 +142,10 @@ gg      Go to the top of the buffer
 <!--- }}} -->
 
 <!--- File Operations {{{ -->
-### File Operations                                         *FileOperations*
+# -----------------------------------------------------------------------
+# File Operations                                        *FileOperations*
+# -----------------------------------------------------------------------
 
-```
 :w              Write file (save)
 :w!             Overwrite without confirmation
 :q              Quit
@@ -149,15 +153,15 @@ gg      Go to the top of the buffer
 :wq!            Write & Quit
 :x              Exit (same as :wq or ZZ)
 
-:w !sudo tee %  用於當編輯的檔案因權限問題無法正常寫入時，改用sudo tee方式寫入。
+:w !sudo tee %  當編輯的檔案因權限問題無法正常寫入時，改用sudo tee方式寫入。
 :w newfile      Write to a file (但是當前的buffer名稱並未改變，與saveas不同)
 :wq! newfile    Write to a file and force quit (通常用於寫到新檔案)
 :5,10w newfile  將5至10列內容寫入newfile
 :10,$w >> nfile 將10至最後一列內容附加到nfile
 
 :e filename     Edit a file (:edit open a new buffer)
-:e #            Edit alternate file (:echo expand('#'), 前一個編輯的檔案)
-:e .            Browse a directory (列出當前目錄內容，使用ijkl移動，Enter選擇)
+:e #            Edit alternate file (:echo expand('#')，前一個編輯的檔案)
+:e .            Navigate current directory（使用ijkl移動，Enter選擇)
 
 :n abc.txt      Edit next file named abc.txt (:new 開啓新buffer編輯)
 
@@ -180,13 +184,11 @@ gg      Go to the top of the buffer
 :r!seq 1 3 50   Gnereate numbers: 1, 4, 7, 10...49
 
 :pwd            Print working directory
-:e .            Navigate the current directory
 
 :find test1.py  尋找在路徑中(path設定)的檔案，找到後開啓
 
 :cd path  Change the working directory, files can be opened with relative path
           Use TAB to auto-complete directory name, UP/DOWN commands history
-```
 <!--- }}} -->
 
 <!--- Basic Misc {{{ -->
@@ -2038,11 +2040,10 @@ visual mode … cp : select with visual mode then copy to system clipboard
 
 設定爲Neovim, Vim 8.0以上專用plugin, 與unite互斥
 
-:Denite fire/rec
+:Denite file/rec
 :Denite file_mru
-
-:Rg 搜尋樣式  : 顯示浮動視窗及preview（rg 命令必須存在）
-:Ag 搜尋樣式  : 顯示浮動視窗及preview（雖然未自定義但依舊可用，ag 命令必須存在）
+:Denite grep  - 按下 Enter 後輸入要尋找的樣式
+:Denite <TAB> - 自動補全，可以看到更多的功能
 
 * <Leader> ff : file
 * <Leader> fF : file/rec
@@ -2117,45 +2118,6 @@ visual mode … cp : select with visual mode then copy to system clipboard
 ```
 <!--- }}} -->
 
-<!--- neocomplete {{{ -->
-###[neocomplete](https://github.com/Shougo/neocomplete.vim)
-```
-* -----------------------------------
-* neocomplete : replace YouCompleteMe
-* -----------------------------------
-~/.vim/vundle_plugins/neocomplete.vim
-
-* Python [jedi-vim](https://github.com/davidhalter/jedi-vim)
-
-* jedi-vim supports the following commands:
-  + Completion <C-l>
-  + Goto assignments <leader>g (typical goto function)
-  + Goto definitions <leader>D (follow identifier as far as possible, includes imports and statements)
-  + Show Documentation/Pydoc K (shows a popup with assignments)
-  + Renaming <leader>r
-  + Usages <leader>n (shows all the usages of a name)
-  + Open module, e.g. :Pyimport os (opens the os module)
-
-:help jedi-vim
-```
-<!--- }}} -->
-
-<!--- vim-javacomplete2 {{{ -->
-###[vim-javacomplete2](https://github.com/artur-shaik/vim-javacomplete2)
-```
-~/.vim/vundle_plugins/vim-javacomplete2.vim
-
-* Default mapping:
-    + <leader>jI : Imports-AddMissing
-    + <leader>jR : Imports-RemoveUnused
-    + <leader>ji : Imports-AddSmart
-    + <leader>jii: Imports-Add
-    + <leader>jM : Generate-AbstractMethods
-    + <leader>jc : Generate-Constructor
-    + <leader>jA : Generate-Accessors
-```
-<!--- }}} -->
-
 <!--- deoplete.nvim {{{ -->
 ###[deoplete.nvim](https://github.com/Shougo/deoplete.nvim)
 
@@ -2174,129 +2136,6 @@ visual mode … cp : select with visual mode then copy to system clipboard
 ```
 <!--- }}} -->
 
-<!--- Gundo.vim {{{ -->
-###[Gundo.vim](https://github.com/sjl/gundo.vim/)
-```
-~/.vim/vundle_plugins/Gundo.vim
-
-* [Gundo](http://sjl.bitbucket.org/gundo.vim/)
-
-* F8: Undo graph toggle
-
-```
-<!--- }}} -->
-
-<!--- dispatch.vim {{{ -->
-###[dispatch.vim](https://github.com/tpope/vim-dispatch)
-```
-asynchronous build and test dispatcher
-
-~/.vim/vundle_plugins/vim-dispatch.vim
-
-* F6: Dispatch
-
-```
-<!--- }}} -->
-
-<!--- test.vim {{{ -->
-###[test.vim](https://github.com/janko-m/vim-test)
-```
-Run your tests at the speed of thought
-
-~/.vim/vundle_plugins/vim-test.vim
-
-```
-<!--- }}} -->
-
-<!--- vim-vis.vim {{{ -->
-###[vim-scripts/vis](https://github.com/vim-scripts/vis)
-```
-Visual Block Commands
-~/.vim/vundle_plugins/vim-vis.vim
-
-Use V, v, or ctrl-v to visually mark some region.  Then use
-:B cmd     (this command will appear as:   :'<,'>B cmd)
-
-The command will then be applied to just the visually selected region.
-For examples:
-
-:B s/pattern/output/
-:B left
-:B right
-
-:B !sort
-
-:help vis
-```
-<!--- }}} -->
-
-<!--- dragvisuals.vim {{{ -->
-###dragvisuals.vim
-```
-Vim global plugin for dragging virtual blocks
-
-~/.vim/pref/dragvisuals.vim
-
-使用方向鍵（上下左右）對選擇的區域，移動其內容。
-使用 D 來複製一個選擇的區域，方向鍵移動其內容。
-```
-<!--- }}} -->
-
-<!--- vmath.vim {{{ -->
-###vmath.vim
-```
-Vim global plugin for math on visual regions
-
-~/.vim/pref/vmath.vim
-
-使用++對整個buffer或選擇的區域中的數字運算：sum, avg, min, max
-結果存放在對應的暫存器中：s, a, n, x
-使用"sp, "ap, "np, "xp 取得結果
-```
-<!--- }}} -->
-
-<!--- terminus {{{ -->
-###[terminus](https://github.com/wincent/terminus)
-```
-Enhanced terminal integration for Vim
-
-~/.vim/vundle_plugins/terminus.vim
-
-+ 讓遊標在插入模式下變成直線符號，而在正常模式下爲區塊符號。
-+ 讓貼入動作更流暢，不必在考慮paste的問題。
-
-[Terminus@YouTube](https://www.youtube.com/watch?v=wRII9nHCixU&feature=youtu.be#t=344.544036)
-
-```
-<!--- }}} -->
-
-<!--- vim-maketable {{{ -->
-###[vim-maketable](https://github.com/mattn/vim-maketable)
-```
-Create a table from comma-separated data
-
-~/.vim/vundle_plugins/vim-maketable.vim
-
-+ 使用visual mode選擇範圍（欄位以逗號分開）
-:'<,>'MakeTable
-:'<,>'MakeTable!   把第一列當作表頭
-```
-<!--- }}} -->
-
-<!--- vim-syntastic {{{ -->
-###[vim-syntastic](https://github.com/vim-syntastic/syntastic)
-```
-語法檢查plugin
-It run files through external syntax checkers and display any resulting error
-to the user.
-
-~/.vim/vundle_plugins/syntastic.vim
-
-:help syntastic
-:help syntastic-checkers
-```
-<!--- }}} -->
-
 <!--- vim-markdown {{{ -->
 ###[vim-markdown](https://github.com/plasticboy/vim-markdown)
 ```
@@ -2309,143 +2148,19 @@ and extensions.
 ```
 <!--- }}} -->
 
-<!--- Tabular {{{ -->
-###[Tabular](https://github.com/godlygeek/tabular)
+<!--- fzf.vim {{{ -->
+###[fzf.vim](https://github.com/junegunn/fzf.vim)
 ```
-[Aligning text with Tabular](http://vimcasts.org/episodes/aligning-text-with-tabular-vim/)
+Things you can do with fzf and Vim.
 
-~/.vim/vundle_plugins/Tabular.vim
+:Rg 搜尋樣式 : 顯示浮動視窗及preview
+:Ag 搜尋樣式 : 顯示浮動視窗及preview
 
-<leader> = 以等號爲準做對齊
-<leader> : 以冒號後第1個空白爲準做對齊
-
-輸入pipe(|)符號時，自動呼叫Tabularize對齊
-
-:Tabularize /<Regex>
-
-:'<,>'Tab /=
-:'<,>'Tab /:\zs
-
-:help tabular
-```
-<!--- }}} -->
-
-<!--- dbext {{{ -->
-###[dbext](http://www.vim.org/scripts/script.php?script_id=356)
-```
-已經複製一份到git, 以方便vundle安裝。
-實際的DB密碼放在~/.vim/bundle目錄，第一次安裝必須將dbuserpwd.vim複製到此。
-
-~/.vim/vundle_plugins/dbext.vim
-
-簡要說明參考[這裏](http://blog.xuite.net/yschu/wretch/104920727)
-
-編輯檔案中使用modeline指定預設的profile,定義於(~/.vim/pref/dbextpc.vim)
-例如在檔案內第一行指定要使用MySQL DBI方式存取資料庫
--- dbext:profile=mysql_DBI
-實際設定放在： ~/.vim/bundle/dbuserpwd.vim
-
-<leader> sel 執行當前列
-<leader> sea 執行全部（命令以分號隔開）
-<leader> se  執行選擇範圍
-<leader> sE  執行選擇範圍，可選擇(詢問)傳回多少列
-
-<leader> st  傳回遊標所在表格內容
-<leader> sT  傳回遊標所在表格內容，詢問要傳回多少列
-
-<leader> sdt 查詢表格結構
-<leader> sdv 查詢視圖結構
-<leader> sdp 查詢程序結構
-
-<leader> slt 列出表格
-<leader> slv 列出視圖
-<leader> slp 列出程序
-<leader> slc 取得遊標所在表格的所有欄位，詢問alias prefix並輸入後，放入paste buffer
-
-<leader> sh  顯示歷史命令
-
-改變連線的設定：
-:DBSetOption user=scoot:passwd=tiger
-
-user   : User id
-passwd : Password
-dsnname: ODBC DSN to connect to
-srvname: Server name
-dbname : Which database on the server to connect to
-host   : Machine name or IP address of server
-port   : Port server is running on
-
-物件自動完成：
-:DBCompleteTables     (載人連接資料庫的表格到字典中)
-:DBCompleteViews
-
-在輸入時，可以使用Ctrl-X Ctrl-K功能鍵，在字典中尋找當前輸入文字。
-使用Ctrl-N, Ctrl-P在符合的內容中，向下、向上移動，輸入任何文字後傳回。
-
-:help dbext
-:help dbext-maps-commands
-```
-<!--- }}} -->
-
-<!--- SQHell {{{ -->
-###[SQHell](https://github.com/joereynolds/SQHell.vim)
-```
-Neovim沒有支援Perl語言，dbext無法執行，所以使用此簡易模組，目前支援MySQL, PostgreSQL, Sqlite
-實際的DB密碼放在~/.vim/bundle目錄，第一次安裝必須將SQHuserpwd.vim複製到此。
-
-~/.vim/vundle_plugins/SQHell.vim
-
-macOS: /usr/local/etc/my.cnf 可以指定不同的埠號
-[client]
-port=3307
-
-<leader> sel 執行當前列
-<leader> sea 執行全部（命令以分號隔開）
-
-:help sqhell
-```
-<!--- }}} -->
-
-<!--- comfortable-motion.vim {{{ -->
-###[comfortable-motion](https://github.com/yuttie/comfortable-motion.vim)
-```
-改變了預設的跳頁動作爲捲動頁：ctrl-u, ctrl-d, ctrl-f, ctrl-b
-
-~/.vim/vundle_plugins/comfortable-motion.vim
-
-```
-<!--- }}} -->
-
-<!--- vim-marked {{{ -->
-###[vim-marked](https://github.com/itspriddle/vim-marked)
-```
-Open the current Markdown buffer in Marked. (MacOS only)
-
-~/.vim/vundle_plugins/vim-marked.vim
-
-按下F5執行，呼叫Marked 2顯示結果
-
-:help marked
-```
-<!--- }}} -->
-
-<!--- vim-picker {{{ -->
-###[vim-picker](https://github.com/srstevenson/vim-picker)
-```
-A fuzzy picker for Neovim and Vim.
-
-~/.vim/vundle_plugins/vim-picker.vim
-
+外部命令 rg、ag 必須自行安裝。
 macOS:
 > brew install fzf
 > brew install ripgrep
-
-<leader>pe :PickerEdit
-<leader>ph :PickerHelp
-
-[fzf-tmux](https://github.com/junegunn/fzf#fzf-tmux-script)
-if run vim within tmux, setting:
-let g:picker_selector = 'fzf-tmux'
+> brew install the_silver_searcher
 ```
 <!--- }}} -->
 
@@ -2508,17 +2223,17 @@ Misc                                                        *Misc*
 
 * Ref:[Let Vim do the typing](http://georgebrock.github.io/talks/vim-completion)
 
-* Customize Mapping: ~/.vim/mappings.vim 主要定義key mapping的檔案
+* ~/.vim/userautoload/init/mappings.vim 主要定義key mapping的檔案
 
 * F1: Help
-* F2: Line number toggle
+* F2:
 * F3: Spell toggle
 * F4: Quickfix window toggle (<leader> q)
 * F5: Run
-* F6: Dispatch (make)
+* F6:
 * F7: LaTextoUnicode toggle
-* F8: Undo graph toggle
-* F9: Change colorscheme
+* F8:
+* F9:
 
 * <leader> /  : Clear search highlight
 * <leader> o  : 在瀏覽器內開啓目前遊標所在的網址

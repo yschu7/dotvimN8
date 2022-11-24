@@ -30,3 +30,7 @@ hook_add = '''
 '''
 on_ft = ['julia']
 
+[[plugins]]
+repo = 'yschu7/FIGlet.vim'
+on_cmd = ['FIGlet']
+

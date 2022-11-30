@@ -61,7 +61,7 @@ vnoremap <C-k> 15gkzz
 "-------------
 " YS mappings
 "-------------
-" map ctrl-c to something else so I quick using it
+" map ctrl-c to something else so I quit using it
 nnoremap <c-c> <Nop>
 inoremap <c-c> <Nop>
 
@@ -77,7 +77,7 @@ noremap <silent> <leader>v :sp $MYVIMRC<CR><C-W>_
 noremap <silent> <leader>V :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
 " ,h brings up my Vim-notes.txt
-noremap <silent> <leader>h :sp ~/.vim/help/Vim-notes.txt<CR><C-W>_:set filetype=help<CR>
+noremap <silent> <leader>h :sp ~/.vim/help/Vim-notes.txt<CR><C-W>_:set filetype=help<CR>:set foldmethod=marker<CR>
 
 " for when we forget to use sudo to open/edit a file
 cnoremap w!! w !sudo tee % >/dev/null

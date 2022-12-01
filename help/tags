@@ -26,7 +26,7 @@ MotionCont	Vim-notes.txt	/*MotionCont*
 NERDTree	Vim-notes.txt	/*NERDTree*
 Plugins	Vim-notes.txt	/*Plugins*
 Range	Vim-notes.txt	/*Range*
-Regex	Vim-notes.txt	/*Regex*
+Regexp	Vim-notes.txt	/*Regexp*
 SearchReplace	Vim-notes.txt	/*SearchReplace*
 SetShowReset	Vim-notes.txt	/*SetShowReset*
 SpecialG	Vim-notes.txt	/*SpecialG*

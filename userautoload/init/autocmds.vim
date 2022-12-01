@@ -6,7 +6,6 @@
 if has("autocmd")
   augroup MyAutoCommands
     " Clear the auto command group so we don't define it multiple times
-    " Idea from http://learnvimscriptthehardway.stevelosh.com/chapters/14.html
     autocmd!
     " No formatting on o key newlines
     autocmd BufNewFile,BufEnter * set formatoptions-=o
@@ -167,15 +166,6 @@ if has("autocmd")
     au FileType lua nnoremap <buffer><leader>tx :up!<CR>:call VimuxRunCommand("lua ".expand('%:p')."\n")<CR>
     " Leave paste mode on exit
     au InsertLeave * set nopaste
-
-    " F6 : Dispatch configuration
-    autocmd FileType java   let b:dispatch = 'javac %'
-    autocmd FileType rust   let b:dispatch = 'rustc %'
-    autocmd FileType ruby   let b:dispatch = 'ruby %'
-    autocmd FileType python let b:dispatch = 'python3 %'
-    autocmd FileType groovy let b:dispatch = 'groovy %'
-    autocmd FileType cpp    let b:dispatch = 'g++ % -o %<'
-    autocmd FileType lua    let b:dispatch = 'lua %'
 
     " Set path
     " autocmd BufEnter *.rb set path+=~/ruby/**

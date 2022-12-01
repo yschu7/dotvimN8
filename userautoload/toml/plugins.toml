@@ -28,6 +28,8 @@ let g:surround_35  = "#{\r}"
 
 " Shortcuts for common surrounds
 map <leader>y# ysiw#
+map <leader>y" ysiw"
+map <leader>y' ysiw'
 '''
 
 [[plugins]]

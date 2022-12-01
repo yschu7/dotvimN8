@@ -1,4 +1,4 @@
-*Vim-notes.txt*        Y.S. Chu's Vim Notes v 3.3
+*Vim-notes.txt*        Y.S. Chu's Vim Notes v 3.5
 
       __           _                 __      _
 /\_/\/ _\   /\   /(_)_ __ ___     /\ \ \___ | |_ ___  ___
@@ -33,7 +33,7 @@ Table of Contents                                           *VimNotes*
     22. Substitute                  |Substitute|
     23. Range                       |Range|
     24. global                      |global|
-    25. Regular Expression          |Regex|
+    25. Regular Expression          |Regexp|
     26. ACK command in Vim          |Ack|
     27. Advanced Configuration      |Mapping|
     28. Abbreviations               |Abbrev|
@@ -378,9 +378,9 @@ first/last 5 lines of the file
 <!--- }}} -->
 
 <!--- Help {{{ -->
-# ----------------------------------------------------------------------
-# Help <F1> 顯示輔助訊息                                          *Help*
-# ----------------------------------------------------------------------
+# -----------------------------------------------------------------------
+# Help <F1> 顯示輔助訊息                                           *Help*
+# -----------------------------------------------------------------------
 
 :help [subject] 或 :h [subject]
 :h normal-index
@@ -678,34 +678,36 @@ g ctrl-g  顯示目前位置 (以column,line,word,char,byte)
 <!--- }}} -->
 
 <!--- Marks {{{ -->
-# ----------------------------------------------------------------------
-# Marks 標記                                                     *Marks*
-# ----------------------------------------------------------------------
+# -----------------------------------------------------------------------
+# Marks 標記                                                      *Marks*
+# -----------------------------------------------------------------------
 
 a-z   Lowercase marks are file-specific. (to jump within buffer/file)
 A-Z   Uppercase marks are global. (to jump between buffers/files)
 
-ma    create a mark named 'a'，將目前位置設定(m)標記(a)
-兩種引用標記的命令：倒引號(`)與單引號(')
-`a    jump to exact line and column，跳到標記所在實際位置(row&col)
-'a    jump to beginning of marked line only，跳到標記所在列的開頭
-d'a   刪除游標開始到標記a的內容(以列為單位)
-d`a   刪除游標開始到標記a之間的內容
+mx    在目前位置建立(m)標記(x)
+兩種引用標記的命令：反引號(`)與單引號(')
+`x    游標移動到標記x所在確切位置(反引號)
+'x    游標移動到標記x所在列的開頭(單引號)
+d'x   刪除游標開始到標記x的內容(以列為單位)
+d`x   刪除游標開始到標記x之間的內容
 
 `0-`9 The location of the cursor when you last exited Vim(`0 most recent)
 '.    Location of the last edit/change
 `.    The exact line/column pos of the last edit/change
-''    The position of the cursor before the latest jump
-``    The exact line/column position before the latest jump
+''    回到上一個標記或內文所在列的開頭
+``    回到上一個標記或內文到確切位置
 
 :marks            list marks
 :delmarks a b 8   delete 3 marks: a, b and 8
 :delmarks!        delete all marks
+
+:h mark-motions
 <!--- }}} -->
 
 <!--- Editing Text {{{ -->
 # -----------------------------------------------------------------------
-# Editing Text 編輯                                          *EditingText*
+# Editing Text 編輯                                         *EditingText*
 # -----------------------------------------------------------------------
 
 + 插入 move and then goes to insert mode
@@ -743,9 +745,9 @@ D   (delete to the end of line)
 <!--- }}} -->
 
 <!--- Motion Cont. {{{ -->
-# ----------------------------------------------------------------------
-# Motion Cont. 移動（續）                                   *MotionCont*
-# ----------------------------------------------------------------------
+# -----------------------------------------------------------------------
+# Motion Cont. 移動（續）                                    *MotionCont*
+# -----------------------------------------------------------------------
 
 + 移動到段落開始、句子開始、句子結束、段落結束。
 
@@ -900,9 +902,9 @@ step3. h, l   (move left or right to extend the selection)
 <!--- }}} -->
 
 <!--- Visual Mode {{{ -->
-# ----------------------------------------------------------------------
-# Visual Mode                                               *VisualMode*
-# ----------------------------------------------------------------------
+# -----------------------------------------------------------------------
+# Visual Mode 視覺模式                                       *VisualMode*
+# -----------------------------------------------------------------------
 
 v, V 與 Ctrl-v    以字元，整列，區塊為操作模式
 離開Visual模式    <ESC> 或 v, V, Ctrl-v
@@ -919,9 +921,9 @@ Block模式若要選擇包含多列到最後，而各列的結束位置不同時
 <!--- }}} -->
 
 <!--- Command Mode {{{ -->
-# ----------------------------------------------------------------------
-# Command Mode                                             *CommandMode*
-# ----------------------------------------------------------------------
+# -----------------------------------------------------------------------
+# Command Mode 命令模式                                     *CommandMode*
+# -----------------------------------------------------------------------
 
 使用Q命令進入editing mode(單列模式)，或:命令直接執行(ex-mode)
 使用:vi 後 visual返回
@@ -1172,7 +1174,7 @@ normal {command}  execute extended sequence
 
 <!--- Regular Expression {{{ -->
 # -----------------------------------------------------------------------
-# Regular Expression syntax styles                                *Regex*
+# Regular Expression syntax styles                               *Regexp*
 # -----------------------------------------------------------------------
 
 \v     Similar to Perl, Python, Ruby (Very Magic)
@@ -1192,7 +1194,7 @@ Beginning(\<) and End(\>) of a word 匹配單字(\b作為<BS>)
 
 *      匹配0或多次
 \+     匹配1或多次
-\=     匹配0或1次(同問號)
+\=     匹配0或1次(同問號 ?)
 \?     匹配0或1次
 \{n}   匹配n次
 \{n,m} 匹配n到m次
@@ -1200,6 +1202,16 @@ Beginning(\<) and End(\>) of a word 匹配單字(\b作為<BS>)
 \{-}   前面加上負號，代表最少匹配(non-greedy)
 \|     或   foo|bar
 \&     且   \.*Java\&.*line
+
+\i     匹配任何識別字的字元，識別字於 isident 選項定義。
+\k     匹配任何關鍵字的字元，關鍵字於 iskeyword 選項定義。
+\f     匹配任何檔案名稱的字元，名稱於 isfname 選項定義。
+\p     匹配任何可列印字元，於 isprint 選項定義。
+       另有大寫部分 \I、\K、\F、\P 則與小寫類似，但排除數字。
+\s     匹配空白字元（空格或Tab字元）。
+\S     匹配非空白字元。
+
+:help regexp
 
 Repeat a previous search
 step.1  /         start a search
@@ -1216,12 +1228,13 @@ step.4  <Enter>   Execute the search
 取用內容時，大小寫沒有差別。
 兩種方式取用在暫存器的內容：<Ctrl-r>+暫存器名稱，或是以"(暫存器名稱)p。
 
-:help registers   show help
-
 Ctrl-R : insert text from a register 由暫存器插入文字
 
-+ 範例
+:help registers
 
++ ----
++ 範例
++ ----
 以複製的文字內容取代當前的目標文字
 yiw         Yank inner word (copy word under cursor, say "first").
 ...         Move the cursor to another word (say "second").
@@ -1448,99 +1461,137 @@ gggqG       重排整個檔案，gg 到檔頭、gq 重排、G 到檔尾。
 <!--- }}} -->
 
 <!--- Copy/Yank & Registers {{{ -->
-### Copy/Yank & Registers                                   *YankRegister*
+# -----------------------------------------------------------------------
+# Copy/Yank & Registers 複製和暫存器                       *YankRegister*
+# -----------------------------------------------------------------------
 
-```
-Default is unnamed register 預設的暫存器爲""
+Default is unnamed register 預設的暫存器爲無名暫存器"(雙引號)
 Eight types of registers, 48 total registers
 Delete, change, substitute, search, or yank to any register
+0           複製(yank)專用暫存器。
+1-9         最後9次的刪除，從最後一次到最遠一次。
+"           無名暫存器（預設）。
+a-z         命名暫存器，大寫字母表示附加到暫存器。
++、*        系統剪貼簿。
+_           黑洞暫存器（底線，丟棄刪除內容，如同 /dev/null）。
 
-p 與 P      (將暫存器內容放到游標所在之後/前，若內容為整列則以列為單位)
-y, yy 與 Y  (複製/複製一整列/複製到列尾)
-:nmap Y y$  原來的Y命令就是yy，以此改變與C,D行為相同
+:help registers
 
-Yank registers 複製資料到暫存器
-"ayy        (將當前列複製到暫存器a)
-    "a      (use register a，使用暫存器命令"，後可接暫存器名稱)
-    yy      (yank current line)
-"ap         (paste from register a)
++ ----------
++ 複製與貼上
++ ----------
+y, yy 與 Y  複製/複製一整列/複製到列尾。
+p 與 P      將暫存器內容放到游標所在之後/前，若內容為整列則以列為單位。
 
-""          (The unnamed register, contains the last deleted text)
-            "" 預設暫存器"會存放最後一次刪除的資料
-"0p         (paste from zero register, contains of the last yank text)
-            "0 暫存器0會存放最後一次Yank的資料
-:registers  (show contents of all registers, or use :display or :dis)
-"+          (System clipboard, "* on Mac/Win/Liunx; Ctrl-r * in Edit mode)
++ --------
++ 回復刪除
++ --------
+"1pu.u.     從最近一次暫存器回復(1)、放棄、回復(2)、放棄、回復(3)。
 
-command-g   (search again with contents of search clipboard, Mac)
++ -------------------------------
++ Yank registers 複製資料到暫存器
++ -------------------------------
+"ayy        將當前列複製到暫存器a
+    "a      use register a，使用暫存器命令"，後可接暫存器名稱。
+    yy      yank current line，複製當前列。
+"ap         paste from register a，由暫存器a 貼上。
 
-expression register =
-<C-r>=      (Do back-of-the-envelope calculations in place:在insert mode下計算)
-            在不離開insert mode狀態下，計算一個算數運算結果，插入內容，繼續編輯
+""p         預設暫存器"會存放最後一次刪除的資料，這與 p 效果相同。
+"0p         暫存器0會存放最後一次複製的資料（它不會受到刪除命令的影響）。
+:registers  顯示所有暫存器的內容，等同 :reg、:display 或 :dis。
+"+          System clipboard, "* on Mac/Win/Liunx; Ctrl-r * in Edit mode。
 
-Repeat command (@命令把暫存器的內容當成命令執行)
++ ----------------------------------
++ expression register = 運算式暫存器
++ ----------------------------------
+<C-r>=      Do back-of-the-envelope calculations in place 在insert mode下計算
+            在不離開插入模式下，對運算式求值，插入其結果，繼續編輯。
+
++ --------------
++ Repeat command
++ --------------
+@命令把暫存器的內容當成命令執行。
 @:
-  @         (Execute text as a command 在normal mode下執行@:)
-  :         (use the : register as the text of the command)
-            ":暫存器存放最後執行的命令(command mode)
+  @         Execute text as a command 在normal mode下執行@:
+  :         use the : register as the text of the command
+            暫存器:存放最後一次執行的命令(command mode)
+:h @:
 
 事實上，巨集的錄製所指定的字母就是暫存器。例如: qq 錄製在暫存器q內。
 @q 則執行暫存器中錄製的內容。
 因爲q只是暫存器，所以可以把它印出("qp)、修改後再放回去("qdd)。
-```
 <!--- }}} -->
 
 <!--- Recording (macro) {{{ -->
-### Recoding (macro)                                        *Macro*
+# -----------------------------------------------------------------------
+# Recoding (macro 巨集)                                           *Macro*
+# -----------------------------------------------------------------------
 
-```
 使用q後面加上a-z作為記錄暫存器，開始記錄鍵盤動作。最後以q結束記錄。
 使用@執行暫存器內容，播放記錄動作，前面可加上次數。
-qadWWPjq
-  qa        (Start a recoding named a)
-  dW        (Delete a word)
-  W         (Go forward one word)
-  P         (Paste contents)
-  j         (Move down one line)
-  q         (Quit recoding)
-@a          (Play recoding named a)
-10@a        (Play 10 times)
 
-@@          (Repeat the privious @a)
+qadWWPjq
+  qa        Start a recoding named a
+  dW        Delete a word
+  W         Go forward one word
+  P         Paste contents
+  j         Move down one line
+  q         Quit recoding
+
+@a          Play recoding named a
+10@a        Play 10 times
+@@          Repeat the privious @a
+
+qaq         清除暫存器 a
 
 :help q
 :help @@
-```
 <!--- }}} -->
 
 <!--- AutoCommands {{{ -->
-### AutoCommands                                            *AutoCommands*
+# -----------------------------------------------------------------------
+# AutoCommands 自動命令                                    *AutoCommands*
+# -----------------------------------------------------------------------
 
-```
 設定在某些事件發生時，自動執行的命令。
+
+自動命令的一般格式：
+autocmd [group] events file_pattern [nested] command
+```
+:autocmd BufNewFile * :write
+         ^          ^ ^
+         |          | |
+         |          | 要執行的命令
+         |          |
+         |          用於事件過濾的“樣式（pattern）”
+         |
+         要監聽的“事件”
+```
+
 func DateIns()
     $read !date   "insert the date at the end($) of the file
 endf
 直接呼叫函式
 :call DateIns()
 設定鍵盤對映
-map <F12> :call DateIns()<CR>\|:write<CR>
+noremap <F12> :call DateIns()<CR>\|:write<CR>
 設定自動命令
 autocmd FileWritePre * :call DateIns()<CR>
 
-設定對於html檔案在讀取、寫入前，自動格式化其內容
-autocmd BufRead,BufWritePre *.html normal gg=G
+在開啟新的txt檔案時，先寫入其內容（讓檔名存在於檔案系統）。
+autocmd BufNewFile *.txt :write
 
-根據不同檔案形態，執行不同的動作
-autocmd Filetype html nnoremap <leader>c I<!--<esc>A--><esc>
-autocmd Filetype javascript nnoremap <leader>c I//<esc>
+設定對於html檔案在讀取、寫入前，自動格式化(縮排)其內容。
+autocmd BufRead,BufWritePre *.html :normal gg=G
 
-自動命令的一般格式：
-autocmd [group] events file_pattern [nested] command
+根據不同檔案形態，執行不同的動作(Filetye 事件)
+autocmd Filetype html nnoremap <buffer> <leader>c I<!--<esc>A--><esc>
+autocmd Filetype javascript nnoremap <buffer> <leader>c I//<esc>
+autocmd Filetype python nnoremap <buffer> <leader>c I#<esc>
 
 列出定義的自動命令
-:aucodmd 全部列出
-:autocmd [group event pattern] 加上過濾條件
+:aucodmd  全部列出
+:autocmd  [group event pattern] 加上過濾條件
 
 刪除定義的自動命令
 :autocmd! 全部刪除
@@ -1561,14 +1612,13 @@ augroup END
 :set eventignore=all  (全部事件都忽略)
 
 :help autocmd-events  查看各種autocmd的事件
-```
 <!--- }}} -->
 
 <!--- Command-Line arguments {{{ -->
-Command-Line arguments                                      *CommandArguments*
-======================
+# -----------------------------------------------------------------------
+# Command-Line arguments 命令列引數                    *CommandArguments*
+# -----------------------------------------------------------------------
 
-```
 $ vim --help
  用法:vim [參數] [檔案 ..]         編輯指定的檔案
    或:vim [參數] -                 從標準輸入(stdin)讀取檔案
@@ -1584,7 +1634,7 @@ $ cat change.vim
 :quit
 
 $ vim -R file.txt 或 view file.txt 唯讀開啟 (:set readonly)
-$ vim -m file.txt 或 :nowrite      設定不可寫入 (可改為wrtie)
+$ vim -m file.txt 或 :nowrite      設定不可寫入 (可改為write)
 $ vim -Z file.txt                  限制模式 (不可使用:shell,外部command)
 
 $ vim -N file.txt                  Non-compatible mode (vim模式)
@@ -1615,44 +1665,42 @@ $ vim --servername ubuntu64 --remote-silent abc.txt
 設定alias
 alias gvi='gvim --remote-silent'
 alias vi="vim --servername $HOSTNAME --remote-silent"
-```
 <!--- }}} -->
 
-Plugins                                                     *Plugins*
-=======
+# -----------------------------------------------------------------------
+# Plugins 外掛                                                  *Plugins*
+# -----------------------------------------------------------------------
 
-<!--- julia.vim {{{ -->
-### [julia.vim](https://github.com/JuliaEditorSupport/julia-vim)
+<!--- dein.vim {{{ -->                                          *dein*
+# ----------
+# [dein.vim]
+# ----------
+(https://github.com/Shougo/dein.vim)
 
-```
-F7: LaTextoUnicode#Toggle()
-
-:h julia-vim
-:h julia-vim-L2U
-```
-<!--- }}} -->
-
-<!--- dein.vim {{{ -->                                      *dein*
-### [dein.vim](https://github.com/Shougo/dein.vim)
+* 外掛管理器
 
 ~/.vim/vimrc
-主配置檔：~/.vim/vimrc（init.vim）
-下載目錄：~/.vim/dein
-客製目錄：~/.vim/userautoload
+主配置檔： ~/.vim/vimrc
+下載目錄： ~/.vim/dein
+客製目錄： ~/.vim/userautoload/
     toml：定義載入的所有 plugins，分成 plugins.toml、lazy.toml 兩種。
     conf：對於設定比較多的 plugin，使用此目錄存放其設定檔。
-    init：啓始設定。
+    init：啓始設定的Vimscripts。
 
-* 在vim之中使用快捷鍵：
-    * <leader> pi : install
-    * <leader> pu : update
++ 在vim之中使用快捷鍵：
+    <leader> pi : install
+    <leader> pu : update
 
 :h dein
 <!--- }}} -->
 
-<!--- coc.nvim {{{ -->                                      *coc*
-### [coc.nvim](https://github.com/neoclide/coc.nvim)
-* 自動補全 Conquer of Completion
+<!--- coc.nvim {{{ -->                                           *coc*
+# ----------
+# [coc.nvim]
+# ----------
+(https://github.com/neoclide/coc.nvim)
+
+* 自動補全 Conquer of Completion（含擴展管理）
 * 系統需求：vim >= 8.1.1719, neovim >= 0.4.0，NodeJS >= 14.14
 ```
 $ brew install node
@@ -1662,144 +1710,94 @@ $ npm install -g neovim
 ~/.vim/coc-settings.json
 ~/.vim/userautoload/conf/coc-config.vim
 
-* 常用命令（支援 TAB 自動補全）
++ -----------------------------
++ 常用命令（支援 TAB 自動補全）
++ -----------------------------
   :CocList      列出指定的擴展、服務、key map、命令...
   :ConInstall   新增擴展
   :CocUpdate    更新安裝擴展
   :CocUninstall 刪除擴展
   :CocCommand   執行擴展定義的命令
   :messages     擴展發生錯誤時的訊息
+
++ ------
++ 快捷鍵
++ ------
+  <space>g   顯示 CocList 快捷鍵
+  <space>e   顯示 extensions 快捷鍵
+  <esc>      放棄離開
+<!--- }}} -->
+
+<!--- julia.vim {{{ -->
+# -----------
+# [julia.vim]
+# -----------
+(https://github.com/JuliaEditorSupport/julia-vim)
+~/.vim/userautoload/toml/lazy.toml
+
+Julia 程式語言支援
+
+F7: LaTextoUnicode#Toggle()
+
+:h julia-vim
+:h julia-vim-L2U
 <!--- }}} -->
 
 <!--- Surround {{{ -->
-### [Surround](https://github.com/tpope/vim-surround)
+# --------------
+# [vim-surround]
+# --------------
+(https://github.com/tpope/vim-surround)
+~/.vim/userautoload/toml/plugins.toml
 
+* 處理關於圍繞文本的括號、標籤。
+
++ 範例
 ```
-~/.vim/vundle_plugins/vim-surround.vim
+"Hello world!"
+```
+cs"'   外圍改成單引號 'Hello world!'
+cs'<q> 外圍改成 <q>Hello world!</q>
+cst"   外圍改成雙引號 “Hello world!”
 
 cst    Change surrounding tag
 dst    Delete surrounding tag
        在此t指的是tag，但也可以為{,(,[,",'等符號
 
-v.&.S  Add a tag around text, 使用V/v/Ctrl-v選擇範圍後，S改變
+v & S  Add a tag around text, 使用視覺模式選擇範圍後，以S改變。
        可以加入的可能是{,(,[,",',<tag>,或其他的符號
 
 ys     Add surrounding tag，後面爲text-object，最後爲tag。
-ysiw   在游標所在的單字上(inner word)，以輸入的<tag>或符號括起來
+ysiw   在游標所在的單字上(inner word)，以輸入的<tag>或符號括起來。
 ysiw"  將遊標所在的單字(iw)，以雙引號括起來。
-
-yS     同ys，但是開始、結束tag在不同的列，適合HTML的寫法。
-yss    修改游標所在列(sentence)，將內容以輸入的<tag>或符號括起來
+ysiw'  將遊標所在的單字(iw)，以單引號括起來。
+yss    修改游標所在列(sentence)，將內容以輸入的<tag>或符號括起來。
 
 ysiw#  將遊標所在的單字var變成#{var}，for ruby特別好用。
 <leader> y# 設爲快速鍵(ysiw#)
 
+yS     同ys，但是開始、結束tag會放在不同的列，適合HTML的寫法。
+ySs    將游標所在列以上一列、下一列的tag圍繞。使用 v & S 的做法更直覺。
+
 :h surround
-```
 <!--- }}} -->
 
 <!--- Repeat {{{ -->
-### [Repeat](https://github.com/tpope/vim-repeat)
+# ------------
+# [vim-repeat]
+# ------------
+(https://github.com/tpope/vim-repeat)
+~/.vim/userautoload/toml/plugins.toml
 
-```
-~/.vim/vundle_plugins/vim-repeat.vim
 擴充.指令的重複功能，讓其他的plugins也可以使用.重複執行。
-
-```
-<!--- }}} -->
-
-<!--- Sort-Motion {{{ -->
-### [Sort-Motion](https://github.com/christoomey/vim-sort-motion)
-
-```
-~/.vim/vundle_plugins/vim-sort-motion.vim
-排序，使用gs指令來對其後的Motion做排序。
-
-gs5j    往下5列排序（當前列+5）
-gsip    對當前所在的段（paragraph）做排序
-
-```
-<!--- }}} -->
-
-<!--- ReplaceWithRegister {{{ -->
-### [ReplaceWithRegister](https://github.com/vim-scripts/ReplaceWithRegister)
-
-```
-~/.vim/vundle_plugins/ReplaceWithRegister.vim
-覆蓋，使用gr指令以暫存器內容，對其後的Motion text覆蓋。
-
-使用 yiw 複製內容之後，遊標移動到要覆蓋位置，griw 覆蓋內容。
-
-```
-<!--- }}} -->
-
-<!--- vimux {{{ -->
-### [vimux](https://github.com/benmills/vimux)
-
-* [vimux.txt](https://raw.githubusercontent.com/benmills/vimux/master/doc/vimux.txt)
-* [tmux](http://blog.xuite.net/yschu/wretch/104922439)
-
-```
-~/.vim/vundle_plugins/vimux.vim
-
-* tmux視窗會在執行命令時自動開啓
-* tmux的prefix key爲 <Ctrl-a>
-* vim的視窗bind-key爲 <Ctrl-w>
-
-<leader> tx  開啓一個tmux視窗，執行目前編輯檔案(rb,py,sh...)
-<leader> tp  詢問輸入命令，在tmux視窗執行該命令(若沒有tmux視窗則開啓一個)
-<leader> tc  關閉tmux視窗
-<leader> tw  寫入buffer後，執行最後一個命令
-<leader> tr  在tmux視窗執行目前選擇的內容(或遊標所在paragraph的內容)
-<leader> tz  將畫面切換到tmux視窗後放大(使用 <Ctrl-a> z 切換回來)
-<leader> ti  將畫面切換到tmux視窗,並進入copy模式
-
-:h vimux
-```
-<!--- }}} -->
-
-<!--- vimcmdline {{{ -->
-### [vimcmdline](https://github.com/jalvesaq/vimcmdline)
-
-```
-~/.vim/vundle_plugins/vimcmdline.vim
-
-<LocalLeader>s 啓動直譯器分割視窗（\s）
-<LocalLeader>q 結束分割視窗（\q）
-<Space> 執行目前遊標所在列
-<LocalLeader><Space> 執行目前遊標所在列，遊標停留在當前列
-
-在Visual mode中選擇一段程式碼後，按下<Space>可以執行整段程式碼。
-```
-<!--- }}} -->
-
-<!--- Gist {{{ -->
-### [Gist](https://github.com/mattn/gist-vim)
-
-```
-~/.vim/vundle_plugins/gist-vim.vim
-token file: $HOME/.gist-vim, user file: $HOME/.gitconfig
-
-:Gist       將目前編輯內容上傳到Gist，第一次會詢問git密碼，而後產生$HOME/.gist-vim
-:Gist -a    以匿名方式上傳
-:'<,'>Gist  以選擇的區塊內容上傳
-:Gist -l    列出自己的gists（可以使用游標選擇後，按下Enter下載其內容）
-:Gist -l mattn    列出使用者mattn的公開gists
-:Gist gist_id     以上面提供的gist_id下載其內容
-:Gist gist_id -c  下載內容，並將之存放到clipboard中
-:Gist -e          將已下載內容修改後上傳
-:Gist -s "Desc"   將已下載內容（可能經過修改）上傳，並修改其描述
-:Gist -e -s "D"   將已下載內容修改後上傳，並修改其描述
-
-:h gist-vim-usage
-```
 <!--- }}} -->
 
 <!--- Tcomment {{{ -->
-### [Tcomment](https://github.com/tomtom/tcomment_vim)
-
-```
-~/.vim/vundle_plugins/tcomment_vim.vim
+# --------------
+# [tcomment_vim]
+# --------------
+(https://github.com/tomtom/tcomment_vim)
+~/.vim/userautoload/toml/plugins.toml
 
 gcc         將目前游標所在註解/反註解
 gc          將目前以Visual mode標識的區域註解/反註解
@@ -1807,54 +1805,29 @@ gc          將目前以Visual mode標識的區域註解/反註解
 control - b 有些語言對單列及多列的註解方式不同，如：ruby, cpp, swift...
 
 :h tcomment
-```
-<!--- }}} -->
-
-<!--- Ag {{{ -->
-### [Ag](https://github.com/rking/ag.vim)
-
-```
-~/.vim/vundle_plugins/ag.vim
-
-可取代grep，把尋找的結果放在QuickFix視窗
-
-:Ag [options] pattern [directory]
-
-Search recursively in {directory} (which defaults to the current directory)
-for the {pattern}.   遞迴搜尋符合樣式(若未指定目錄，預設爲當前目錄)
-
-:AgBuffer [options] {pattern}   由目前打開的所有buffer內尋找
-:AgFile [options] {pattern} [directory]   尋找符合的檔名
-
-:Ag -t 'foo|bar' ruby   在ruby目錄下遞迴尋找包含foo或bar的文字檔
-
-:LAg [options] pattern [directory]   如同:Ag，但是結果放入location-list
-
-:Ag 'foo|bar' *.txt
-
-:h ag
-```
 <!--- }}} -->
 
 <!--- vim-ruby {{{ -->
-### [vim-ruby](https://github.com/vim-ruby/vim-ruby)
-
-```
-~/.vim/vundle_plugins/vim-ruby.vim
+# ----------
+# [vim-ruby]
+# ----------
+(https://github.com/vim-ruby/vim-ruby)
+~/.vim/userautoload/toml/lazy.toml
 
 在插入模式下，使用Ctrl-x Ctrl-o 來啓動completion menu (在.之後)
 它會根據上下文顯示相關的方法，使用Ctrl-n、Ctrl-p 往前、往後，Ctrl-y選擇。
 
 :h ft-ruby-omni
 :h i_CTRL-X_CTRL-O
-```
 <!--- }}} -->
 
-<!--- NERDTree {{{ -->
-### [NERDTree](https://github.com/scrooloose/nerdtree)          *NERDTree*
-
-```
-~/.vim/vundle_plugins/nerdtree.vim
+<!--- NERDTree {{{ -->                                      *NERDTree*
+# ----------
+# [NERDTree]
+# ----------
+(https://github.com/preservim/nerdtree)
+~/.vim/userautoload/toml/plugins.toml
+~/.vim/userautoload/conf/nerdtree.vim
 
 * <leader>nt : 啓動NERDTree
 * <leader>nn : NERDTree Toggle
@@ -1891,29 +1864,33 @@ for the {pattern}.   遞迴搜尋符合樣式(若未指定目錄，預設爲當�
 :ClearBookmarks <names...>
 
 :h NERD_tree
-```
 <!--- }}} -->
 
 <!--- vim-airline {{{ -->
-### [vim-airline](https://github.com/bling/vim-airline)
+# -------------
+# [vim-airline]
+# -------------
+(https://github.com/vim-airline/vim-airline)
+~/.vim/userautoload/toml/plugins.toml
 
-* [theme screenshots](https://github.com/bling/vim-airline/wiki/Screenshots)
+* [theme screenshots]
+(https://github.com/vim-airline/vim-airline/wiki/Screenshots)
 
-* ~/.vim/bundle/vim-airline-themes/autoload/airline/themes/*.vim
+# ------------------
+# vim-airline-themes
+# ------------------
+(https://github.com/vim-airline/vim-airline-themes)
 
-```
-~/.vim/vundle_plugins/vim-airline.vim
-
-* AirlineTheme murmur   改變airline狀態列的配色方案
-* 可與 |base16-vim| 配色方案搭配
-```
+:AirlineTheme murmur   改變airline狀態列的配色方案，<TAB>自動補全
+可與 |base16-vim| 配色方案搭配
 <!--- }}} -->
 
 <!--- UltiSnips {{{ -->
-###[UltiSnips](https://github.com/SirVer/ultisnips)
+# -----------
+# [UltiSnips]
+# -----------
+(https://github.com/SirVer/ultisnips)
 
-```
-~/.vim/vundle_plugins/ultisnips.vim
 ~/.vim/MyUltiSnips : 設定的snippet存放目錄
 
 * <Ctrl> n : 下一個snippet
@@ -1924,125 +1901,36 @@ for the {pattern}.   遞迴搜尋符合樣式(若未指定目錄，預設爲當�
 
 :UltiSnipsEdit java     編輯java語言的snippet檔案
 定義了：imp, main, syso
-```
 <!--- }}} -->
 
-<!--- vim-eunuch {{{ -->
-###[vim-eunuch](https://github.com/tpope/vim-eunuch)
+<!--- Gist {{{ -->
+# ----------
+# [vim-gist]
+# ----------
+(https://github.com/mattn/vim-gist)
 
-#####Vim sugar for Unix shell commands
-* `:Remove`   : Delete a buffer and the file on disk simultaneously.
-* `:Unlink`   : Like :Remove, but keeps the now empty buffer.
-* `:Move`     : Rename a buffer and the file on disk simultaneously.
-* `:Chmod`    : Change the permissions of the current file.
-* `:Mkdir`    : Create a directory, defaulting to the parent of the current file.
-* `:Find`     : Run find and load the results into the quickfix list.
-* `:Wall`     : Write every open window.
-* `:SudoWrite`: Write a privileged file with sudo.
-* `:SudoEdit` : Edit a privileged file with sudo.
-* New files created with a shebang line are automatically made executable.
+token file: $HOME/.gist-vim, user file: $HOME/.gitconfig
 
-* `:cd` path  : Change working directory
-* `:pwd`      : Print working directory
-* `:e .`      : Navigate the current directory
-* `:NERDTree` path
-<!--- }}} -->
+:Gist       將目前編輯內容上傳到Gist，第一次會詢問git密碼，而後產生$HOME/.gist-vim
+:Gist -a    以匿名方式上傳
+:'<,'>Gist  以選擇的區塊內容上傳
+:Gist -l    列出自己的gists（可以使用游標選擇後，按下Enter下載其內容）
+:Gist -l mattn    列出使用者mattn的公開gists
+:Gist gist_id     以上面提供的gist_id下載其內容
+:Gist gist_id -c  下載內容，並將之存放到clipboard中
+:Gist -e          將已下載內容修改後上傳
+:Gist -s "Desc"   將已下載內容（可能經過修改）上傳，並修改其描述
+:Gist -e -s "D"   將已下載內容修改後上傳，並修改其描述
 
-<!--- emmet-vim {{{ -->
-###[emmet-vim](https://github.com/mattn/emmet-vim)
-
-* [Emmet doc](http://docs.emmet.io/abbreviations/)
-* [Zen Coding](https://code.google.com/p/zen-coding/)
-
-```
-~/.vim/vundle_plugins/emmet-vim.vim
-
-* <Ctrl> y : 展開
-
-#  id
-.  class
-[attr]  custom attributes
-*3 multiply 3 times
->  child element
-+  sibling element
-$  number
-$$ leading zero
-
-Examples:
-開啓html檔案，複製範例，將遊標移動每列最後一個字元，按Ctrl-Y觀看結果
-
-div
-div#header
-div[title]
-a[title="hello world" rel]
-div#header.some.classes+ul>li*3
-dl*2>dt+dd
-ul>li#item-$*5>a
-div.item$-$-content*6
-div.item$$$*3>a
-ul#nav>li*5>a
-
-div#for-ie>cc:ie6
-head>link+script:src
-
-div#header>ul#navigation>li.item$*5>a
-
-div#content>div.section
-#content>.section
-p>{Click }+a{here}+{ to continue}
-```
-<!--- }}} -->
-
-<!--- vim-textobj-user {{{ -->
-###[vim-textobj-user](https://github.com/kana/vim-textobj-user)
-
-```
-~/.vim/vundle_plugins/vim-textobj-user.vim
-~/.vim/vundle_plugins/vim-textobj-line.vim
-~/.vim/vundle_plugins/vim-textobj-indent.vim
-~/.vim/vundle_plugins/vim-textobj-entire.vim
-
-yil  : 複製整列（不含前後空白）
-gcii : 將整個indent block做註解(gc)
-gsie : 全部排序(gs)，不含前後空白列
-cpae : 複製(cp)全部內容到system clipboard
-```
-<!--- }}} -->
-
-<!--- vim-textobj-rubyblock {{{ -->
-###[vim-textobj-rubyblock](https://github.com/nelstrom/vim-textobj-rubyblock)
-
-```
-~/.vim/vundle_plugins/vim-textobj-rubyblock.vim
-擴展textobjects到Ruby的class, module, method, block
-
-ar : select all of a ruby block
-in : select inner portion of a ruby block
-
-gcar : 將整個ruby block做註解(gc)
-```
-<!--- }}} -->
-
-<!--- vim-system-copy {{{ -->
-###[vim-system-copy](https://github.com/christoomey/vim-system-copy)
-
-```
-~/.vim/vundle_plugins/vim-system-copy.vim
-將指定的text object複製到系統剪貼板上
-
-cpiw : copy word into system clipboard
-cp'  : copy inner quotes to system clipboard
-cpar : copy all ruby block to system clipboard
-
-visual mode … cp : select with visual mode then copy to system clipboard
-
-```
+:h gist-vim-usage
 <!--- }}} -->
 
 <!--- vim-simplenote {{{ -->
-###[vim-simplenote.vim](https://github.com/mrtazz/simplenote.vim)
+# ----------------
+# [simplenote.vim]
+# ----------------
+(https://github.com/simplenote-vim/simplenote.vim)
 
-```
 ~/.vim/vundle_plugins/vim-simplenote.vim
 使用者和密碼設定檔：~/.simplenoterc
 
@@ -2051,13 +1939,14 @@ visual mode … cp : select with visual mode then copy to system clipboard
 :Simplenote -D  [Delete]
 :Simplenote -t  [tag]
 :Simplenote -n  [new]
-```
 <!--- }}} -->
 
-
-<!--- denite.nvim {{{ -->
-# [denite.nvim](https://github.com/Shougo/denite.nvim)         *Denite*
-
+<!--- denite.nvim {{{ -->                                     *Denite*
+# -------------
+# [denite.nvim]
+# -------------
+(https://github.com/Shougo/denite.nvim)
+~/.vim/userautoload/toml/plugins.toml
 ~/.vim/userautoload/conf/denite.vim
 ~/.vim/userautoload/conf/denite_post.vim
 
@@ -2092,8 +1981,11 @@ visual mode … cp : select with visual mode then copy to system clipboard
 :help denite
 <!--- }}} -->
 
-<!--- base16-vim {{{ -->
-# [base16-vim](https://github.com/chriskempson/base16-vim)   *base16-vim*
+<!--- base16-vim {{{ -->                                  *base16-vim*
+# ------------
+# [base16-vim]
+# ------------
+(https://github.com/chriskempson/base16-vim)
 
 配色方案
 
@@ -2105,7 +1997,11 @@ visual mode … cp : select with visual mode then copy to system clipboard
 <!--- }}} -->
 
 <!--- FIGlet.vim {{{ -->
-# [FIGlet.vim](https://github.com/yschu7/FIGlet.vim)
+# ------------
+# [FIGlet.vim]
+# ------------
+(https://github.com/yschu7/FIGlet.vim)
+~/.vim/userautoload/toml/lazy.toml
 
 * 來源 [FIGlet.vim](http://www.vim.org/scripts/script.php?script_id=3359)
 
@@ -2118,9 +2014,14 @@ visual mode … cp : select with visual mode then copy to system clipboard
 <!--- }}} -->
 
 <!--- vim-devicons {{{ -->
-# [vim-devicons](https://github.com/ryanoasis/vim-devicons)
+# --------------
+# [vim-devicons]
+# --------------
+(https://github.com/ryanoasis/vim-devicons)
+~/.vim/userautoload/toml/plugins.toml
 
-* 下載 [nerd-fonts](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts)
+* 下載 [nerd-fonts]
+  (https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts)
 * 已經使用 Dropbox/Software/iTerm2/newfonts.tgz
 
 * MacOS: ~/Library/Fonts
@@ -2133,36 +2034,38 @@ visual mode … cp : select with visual mode then copy to system clipboard
 <!--- }}} -->
 
 <!--- deoplete.nvim {{{ -->
-###[deoplete.nvim](https://github.com/Shougo/deoplete.nvim)
-
-```
-* ----------------------
-* deoplete : Neovim only
-* ----------------------
-~/.vim/vundle_plugins/deoplete.vim
+# ---------------
+# [deoplete.nvim]
+# ---------------
+(https://github.com/Shougo/deoplete.nvim)
+~/.vim/userautoload/toml/plugins.toml
 
 * Ruby [deoplete-solargraph](https://github.com/uplus/deoplete-solargraph)
 * Python [deoplete-jedi](https://github.com/zchee/deoplete-jedi)
 
 在插入模式下，使用Ctrl-x Ctrl-o 來啓動completion menu (在. ruby還有:: :之後)
 它會根據上下文顯示相關的方法，使用Ctrl-n、Ctrl-p 往前、往後，Ctrl-y選擇。
-
-```
 <!--- }}} -->
 
 <!--- vim-markdown {{{ -->
-# [vim-markdown](https://github.com/plasticboy/vim-markdown)
+# --------------
+# [vim-markdown]
+# --------------
+(https://github.com/plasticboy/vim-markdown)
+~/.vim/userautoload/toml/lazy.toml
 
 Syntax highlighting, matching rules and mappings for the original Markdown
 and extensions.
 
-~/.vim/vundle_plugins/vim-markdown.vim
-
 :help vim-markdown
 <!--- }}} -->
 
-<!--- fzf.vim {{{ -->
-# [fzf.vim](https://github.com/junegunn/fzf.vim)                    *fzf*
+<!--- fzf.vim {{{ -->                                            *fzf*
+# ---------
+# [fzf.vim]
+# ---------
+(https://github.com/junegunn/fzf.vim)
+~/.vim/userautoload/toml/plugins.toml
 
 Things you can do with fzf and Vim.
 顯示執行命令的結果於浮動視窗及preview
@@ -2194,11 +2097,13 @@ macOS:
 <!--- }}} -->
 
 <!--- vim-fugitive {{{ -->
-###[vim-fugitive](https://github.com/tpope/vim-fugitive)
-```
-A Git wrapper
+# --------------
+# [vim-fugitive]
+# --------------
+(https://github.com/tpope/vim-fugitive)
+~/.vim/userautoload/toml/plugins.toml
 
-~/.vim/vundle_plugins/vim-fugitive.vim
+* A Git wrapper
 
 :Gstatus (<leader>gs)，開啓git status buffer。
 
@@ -2219,45 +2124,45 @@ A Git wrapper
 > cd ~/.vim
 > rm -f .git/index
 > git reset
-
-```
 <!--- }}} -->
 
 <!--- Misc {{{ -->
-Misc                                                        *Misc*
-====
+# -----------------------------------------------------------------------
+# Misc 其他                                                        *Misc*
+# -----------------------------------------------------------------------
 
-```
-:execute "helptags " . expand("%:p:h")   在目前編輯檔案所在目錄下產生tags檔案
-                            % - current file, p - path, h - header, t - tail
+* 在目前編輯檔案所在目錄下產生tags檔案
+:execute "helptags " . expand("%:p:h")
+% - current file, p - path, h - header, t - tail
 
 * Insert mode:
-    * ctrl + r : Insert text from a register
-    * ctrl + a : Insert the last inserted text
-    * ctrl + t : Indent
-    * ctrl + d : Dedent
-    * ctrl + w : Delete word
-    * Completion:
-        * ctrl + p : search backward for matching word compltion
-        * ctrl + n : search forward
-        * ctrl + x ctrl + ] : Tag completion
-        * ctlr + x ctrl + F : Filename completion
-        * ctrl + x ctrl + p : Context-aware word completion
-        * ctrl + x ctrl + n
-        * ctrl + x ctrl + L : Context-aware line completion
-        * ctrl + x ctrl + o : Language-aware completion
+  * ctrl + R : Insert text from a register
+  * ctrl + A : Insert the last inserted text
+  * ctrl + T : Indent
+  * ctrl + D : Dedent
+  * ctrl + W : Delete word
+  * Completion:
+    * ctrl + p : search backward for matching word compltion
+    * ctrl + n : search forward
+    * ctrl + x ctrl + ] : Tag completion
+    * ctlr + x ctrl + F : Filename completion
+    * ctrl + x ctrl + p : Context-aware word completion
+    * ctrl + x ctrl + n
+    * ctrl + x ctrl + L : Context-aware line completion
+    * ctrl + x ctrl + o : Language-aware completion
 
-    :help ins-completion
-    :help 'complete'
+  :help ins-completion
+  :help 'complete'
 
-* Ref:[Let Vim do the typing](http://georgebrock.github.io/talks/vim-completion)
+* Ref:[Let Vim do the typing]
+  (http://georgebrock.github.io/talks/vim-completion)
 
 * ~/.vim/userautoload/init/mappings.vim 主要定義key mapping的檔案
 
 * F1: Help
 * F2:
-* F3: Spell toggle
-* F4: Quickfix window toggle (<leader> q)
+* F3:
+* F4:
 * F5: Run
 * F6:
 * F7: LaTextoUnicode toggle
@@ -2268,41 +2173,31 @@ Misc                                                        *Misc*
 * <leader> o  : 在瀏覽器內開啓目前遊標所在的網址
                 (功能同gx,定義於:~/.vim/userautoload/init/functions.vim)
                 它以ruby寫成，所以vim本身要有has('ruby')功能，否則無效
-* <leader> gg : 在瀏覽器內使用Google查詢目前遊標所在的單字([vim-voogle][01])
-* <leader> g  : 使用Ag命令尋找遊標所在的單字
-                與denite.vim定義的<leader>fg 功能類似
-* <leader> q  : QuickFix視窗切換鍵(Toggle)
-* <Ctrl-w> o  : 將目前的視窗最大化，再按一次恢復原狀(Toggle, [ZoomWin][02])
 * <leader> Z  : 將目前的視窗最大化，再按一次恢復原狀(~/.vim/functions.vim)
 
 * Argument Lists：相當於從vim指令傳入的參數列，在vim中也可以調整它
-    * :args `find lib spec -name '*.rb'`    puts results into argument lists
-    * :args                                 show argument lists
-    * :argdo :%s/Math/MyMath/ge | update    search & replace for each file in..
-             argdo：對所有arg list內的檔案，執行同一組:ex指令
-             選項：e不顯示錯誤訊息，對於多檔案的取代動作，這是個好選擇
-             這裏最後的update指令，會更新所有arg list的檔案
-    * :silent argdo edit!      將所有檔案回復到最後一次存檔的狀態(改正錯誤用)
-    * :argdo update            更新儲存所有arg list的檔案(有改變的)
+  * :args `find lib spec -name '*.rb'`    puts results into argument lists
+  * :args                               show argument lists
+  * :argdo :%s/Math/MyMath/ge | update  search & replace for each file in..
+            argdo：對所有arg list內的檔案，執行同一組:ex指令
+            選項：e不顯示錯誤訊息，對於多檔案的取代動作，這是個好選擇
+            這裏最後的update指令，會更新所有arg list的檔案
+  * :silent argdo edit!      將所有檔案回復到最後一次存檔的狀態(改正錯誤用)
+  * :argdo update            更新儲存所有arg list的檔案(有改變的)
 
-    * :bufdo 與argdo不同的是對所有的buffer動作，它可能是arg list的超集合
-             新增加或修改的檔案，只在buffer list中，而不會在arg list內
-    * :ls    顯示目前的buffer list
+  * :bufdo 與argdo不同的是對所有的buffer動作，它可能是arg list的超集合
+            新增加或修改的檔案，只在buffer list中，而不會在arg list內
+  * :ls    顯示目前的buffer list
 
 * filename-modifiers
-    * %:p   - File name of current buffer with full path
-    * %:p:h - Directory of current buffer
-    * %:t   - File name of current buffer without path
-    * %:t:r - File name of current buffer without extension
-    * %:e   - File extension of current buffer
-    * %     - File name relative to current directory
-    * %<    - same as %:t:r
+  * %:p   - File name of current buffer with full path
+  * %:p:h - Directory of current buffer
+  * %:t   - File name of current buffer without path
+  * %:t:r - File name of current buffer without extension
+  * %:e   - File extension of current buffer
+  * %     - File name relative to current directory
+  * %<    - same as %:t:r
 
-    :echo expand("%:p")
-    :help %<
-```
-
-[01]: https://github.com/papanikge/vim-voogle
-[02]: https://github.com/regedarek/ZoomWin
-
+  :echo expand("%:p")
+  :help ::p
 <!--- }}} -->

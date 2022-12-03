@@ -183,3 +183,12 @@ endfunction
 command! ZoomToggle call s:ZoomToggle()
 nnoremap <silent><leader>Z  :ZoomToggle<CR>
 
+" --------------------------------------------------------
+" To highlight all character that are in virtual column 80
+" --------------------------------------------------------
+function! s:HighLight80()
+    highlight column80 term=bold ctermfg=red guifg=red
+    match column80 /\%<81v.\%>80v/
+endfunction
+command! HL80 call s:HighLight80()
+

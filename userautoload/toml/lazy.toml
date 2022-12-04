@@ -34,3 +34,7 @@ on_ft = ['julia']
 repo = 'yschu7/FIGlet.vim'
 on_cmd = ['FIGlet']
 
+[[plugins]]
+repo = 'tpope/vim-scriptease'
+on_ft = ['vim']
+

@@ -80,6 +80,9 @@ merged = '0'
 [[plugins]]
 repo = 'junegunn/fzf.vim'
 depends = 'fzf'
+hook_add = '''
+  nnoremap <C-p> :<C-u>FZF<CR>
+'''
 
 [[plugins]]
 repo = 'chriskempson/base16-vim'

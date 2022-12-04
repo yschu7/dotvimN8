@@ -1950,7 +1950,7 @@ token file: $HOME/.gist-vim, user file: $HOME/.gitconfig
 ~/.vim/userautoload/conf/denite.vim
 ~/.vim/userautoload/conf/denite_post.vim
 
-設定爲Neovim, Vim 8.0以上專用plugin, 與unite互斥
+設定爲Neovim, Vim 8.0以上專用plugin
 
 :Denite file/rec
 :Denite file_mru
@@ -1958,25 +1958,25 @@ token file: $HOME/.gist-vim, user file: $HOME/.gitconfig
 :Denite <TAB> - 自動補全，可以看到更多的功能
 
 * <Leader> ff : file
-* <Leader> fF : file/rec
+* <Leader> fr : file/rec
 * <Leader> fu : file_mru
-* <Leader> fr : resume (previous result)
-* <Leader> fp : registers
+* <Leader> fp : resume (previous result)
+* <Leader> fR : registers
 * <Leader> fb : buffer
 * <Leader> fg : grep "word" under cursor
 * <ctrl> o : file or buffer
 
-操作指令：
-* ESC   : 離開 Denite 視窗
-* Space : 選擇遊標所在的檔案(可以一次多選)
-* Enter : 開啟檔案或buffer
-* o     : 開啟檔案或buffer
-* s     : 在拆分視窗（水平）中打開檔案或buffer
-* v     : 在拆分視窗（垂直）中打開檔案或buffer
-* i     : 按字串過濾（再次輸入篩選）
-* ..    : 往上移一個目錄
-* Ctrl-j: 向前一頁(Ctrl-f)
-* Ctrl-k: 向後一頁(Ctrl-b)
+操作指令:
+* ESC 或 q    : 離開 Denite 視窗
+* Space       : 切換(選擇/取消)游標所在的檔案(可多選)
+* Enter 或 o  : 開啟檔案或buffer
+* d           : 刪除buffer（不是檔案）
+* s           : 在拆分視窗（水平）中打開檔案或buffer
+* v           : 在拆分視窗（垂直）中打開檔案或buffer
+* i           : 按字串過濾（再次輸入篩選）
+* ..          : 往上移一個目錄
+* Ctrl-j      : 向前一頁(Ctrl-f)
+* Ctrl-k      : 向後一頁(Ctrl-b)
 
 :help denite
 <!--- }}} -->
@@ -2070,7 +2070,7 @@ and extensions.
 Things you can do with fzf and Vim.
 顯示執行命令的結果於浮動視窗及preview
 
-:Files [PATH]  執行 fzf 命令
+:Files [Path]  執行 fzf 命令（如同 :FZF [Path]）
 :Ag 搜尋樣式   ag 搜尋結果 Alt-a 全選、Alt-d 全不選（Ag! 全螢幕版）
 :Rg 搜尋樣式   rg 搜尋結果 Alt-a 全選、Alt-d 全不選（Rg! 全螢幕版）
 :Colors        顯示配色方案於浮動視窗，按下 Enter 更改配色
@@ -2078,6 +2078,7 @@ Things you can do with fzf and Vim.
 :History       顯示舊檔案
 :History:      顯示歷史命令
 :History/      顯示歷史搜尋命令
+:Helptags      顯示 vim 的所有輔助標籤
 
 <Tab>          選擇/不選擇檔案(Togle)
 <Enter>        開啟目前游標所在檔案(若有多選擇檔案則另以 Quickfix 視窗呈現)
@@ -2085,6 +2086,7 @@ Ctrl-t         以新 tab 方式打開檔案
 Ctrl-x、Ctrl-v 以水平視窗、垂直視窗方式打開檔案
 Ctrl-k、Ctrl-j 上一列、下一列
 Ctrl-c、Ctrl-d 放棄離開
+Ctrl-f、Ctrl-b 上一頁、下一頁（由環境變數設定）
 
 設定環境變數：ctrl-f、ctrl-b 下一頁、上一頁
 export FZF_DEFAULT_OPTS="--bind ctrl-f:page-down,ctrl-b:page-up"

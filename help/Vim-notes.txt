@@ -1,4 +1,4 @@
-*Vim-notes.txt*        Y.S. Chu's Vim Notes v 3.5
+*Vim-notes.txt*        Y.S. Chu's Vim Notes v 3.53
 
       __           _                 __      _
 /\_/\/ _\   /\   /(_)_ __ ___     /\ \ \___ | |_ ___  ___
@@ -354,13 +354,18 @@ Vim 大部分長指令都有縮寫，例如 softtabstop 縮寫爲sts
 
 :verbose set spellfile?   查看 spellfile 的最後設定者。
                           如果不是預設值時，可以顯示設定它的檔案。
+:verbose vmap             查看所有 vmap 的映射鍵及上一次設定它的檔案。
+:verbose au               查看所有 autocommand 上一次設定它的檔案。
+:verbose command          查看所有 command 上一次設定它的檔案。
+:verbose function         查看所有 function 上一次設定它的檔案。
+:verbose highlight        查看所有 highlight group 上一次設定它的檔案。
 
 :set                 顯示選項的設定值與其系統預設值不同者。
 :options             開啓window顯示所有選項，按Enter瀏覽、:q結束。
 
 :echo &rtp           顯示option(rtp)的目前設定值，類似:set rtp? (runtimepath)
 :echo has('ruby')    顯示VIM是否有包含某個功能特性
-:if executalbe('ag') 測試是否存在執行檔案 ag
+:if executable('ag') 測試是否存在執行檔案 ag
 :h +feature-list     顯示VIM所有包含的功能特性
 :ver                 顯示VIM版本詳細訊息，包含編譯、連結方式
 
@@ -386,41 +391,49 @@ first/last 5 lines of the file
 :h normal-index
 :h <topic><TAB>     press <TAB> for autocompletion
 
+:help index
+:help deleting :help rtp (or runtimepath)
+:help tutor (30 mins turorial : vimtutor or vimtutor.bat)
+
 :helpgrep or helpg [pattern]
 結果顯示於QuickFix視窗，使用以下命令操作：
 :cnext(cn), :cprev(cp)
 :cnfile(cnf), :cpfile(cpf)
 
-:help index
-:help deleting :help rtp (or runtimepath)
-:help tutor (30 mins turorial : vimtutor or vimtutor.bat)
+若結果顯示於分頁，則應以 :tabclose 關閉。
 
-在輔助文件間的跳動：
-Ctrl-]  (jump to tag)       hyperlink |help subject|
-Ctrl-T  (pop tag) or Ctrl-O
-Ctrl-[  same as Ctrl-T
-ZZ, gz, :bd (leave help system)
++ ------------------------------
++ 在輔助文件間的跳動（標籤堆疊）
++ ------------------------------
+Ctrl-]   jump to tag           hyperlink |help subject|
+Ctrl-T   pop tag
+Ctrl-[   同上
+ZZ, :bd  leave help system
 
 + ----------------
 + Help Prefix 前綴
 + ----------------
-
 輔助命令的各種前綴寫法範例：
 
 What                   Prefix          Example
-------------------------------------------------------
+-----------------------------------------------------------------
 Normal-mode commands   (nothing)       :help x
                                        :help gu
                                        :help ^n         (Ctrl-n)
 Control character      CTRL-           :help CTRL-n     (Ctrl-n)
 Visual-mode commands   v               :help v_u
-Insert-mode commands   i               :h i_<Esc>
-                                       :h i_^n
-ex-mode commands       :               :h :quit
-Command-line editing   c               :h c_<Del>
-                                       :h c_^n
-Vim command arguments  -               :h -r
-Options                '(both ends)    :h 'textwidth'
+Insert-mode commands   i               :help i_<Esc>
+                                       :help i_^n
+ex-mode commands       :               :help :quit
+Command-line editing   c               :help c_<Del>
+                                       :help c_^n
+Vim command arguments  -               :help -r
+Options                '(both ends)    :help 'textwidth'
+
+What                   Suffix          Example
+-----------------------------------------------------------------
+Functions              ()              :help function()
+                                       :help sort()
 <!--- }}} -->
 
 <!--- Files {{{ -->
@@ -1338,12 +1351,12 @@ in insert mode, type ff<SPACE> or <ESC>
 + ----------
 + 折疊方法：
 + ----------
-  indent    Use spaces or tabs to find foldable blocks
-  syntax    Fold on language features(methods, classes)
-  marker    Fold on textual marks
-  diff      Fold unchanged text
-  expr      Custom, code-driven folding
-  manual    Select ranges to fold
+  indent    Use spaces or tabs to find foldable blocks  程式碼縮排。
+  syntax    Fold on language features(methods, classes) 程式語言的語法。
+  marker    Fold on textual marks 基於特定字元組合，通常放在注釋中。
+  diff      Fold unchanged text   使用 diff 檔案時使用。
+  expr      Custom, code-driven folding 自訂 Vim 表達式。
+  manual    Select ranges to fold       手動設定(zf 建立折疊)。
 
                               zk
                               Up
@@ -1369,7 +1382,9 @@ zk, zj 為依據程式摺疊的情況來往上、往下移動游標
 autocmd FileType ruby setlocal foldmethod=syntax
 autocmd FileType css setlocal foldmethod=indent sw=2 ts=2
 
-:set foldmarker   fmr: to get or set the fold marker 預設值{{{,}}}
+:set foldmarker   fmr: to get or set the fold marker 預設值"{{{,}}}"
+
+:help usr_28
 <!--- }}} -->
 
 <!--- Completion {{{ -->
@@ -2070,7 +2085,7 @@ and extensions.
 Things you can do with fzf and Vim.
 顯示執行命令的結果於浮動視窗及preview
 
-:Files [Path]  執行 fzf 命令（如同 :FZF [Path]）
+:Files [Path]  執行 fzf 命令（如同 :FZF [Path]）後面加 ! 全螢幕版
 :Ag 搜尋樣式   ag 搜尋結果 Alt-a 全選、Alt-d 全不選（Ag! 全螢幕版）
 :Rg 搜尋樣式   rg 搜尋結果 Alt-a 全選、Alt-d 全不選（Rg! 全螢幕版）
 :Colors        顯示配色方案於浮動視窗，按下 Enter 更改配色
@@ -2080,12 +2095,14 @@ Things you can do with fzf and Vim.
 :History/      顯示歷史搜尋命令
 :Helptags      顯示 vim 的所有輔助標籤
 
+<Ctrl-p>       執行fzf（:FZF 的映射）
+
 <Tab>          選擇/不選擇檔案(Togle)
 <Enter>        開啟目前游標所在檔案(若有多選擇檔案則另以 Quickfix 視窗呈現)
 Ctrl-t         以新 tab 方式打開檔案
 Ctrl-x、Ctrl-v 以水平視窗、垂直視窗方式打開檔案
 Ctrl-k、Ctrl-j 上一列、下一列
-Ctrl-c、Ctrl-d 放棄離開
+Ctrl-c         放棄離開
 Ctrl-f、Ctrl-b 上一頁、下一頁（由環境變數設定）
 
 設定環境變數：ctrl-f、ctrl-b 下一頁、上一頁
@@ -2096,6 +2113,8 @@ macOS:
 > brew install fzf
 > brew install ripgrep
 > brew install the_silver_searcher
+
+:help fzf
 <!--- }}} -->
 
 <!--- vim-fugitive {{{ -->
@@ -2128,6 +2147,39 @@ macOS:
 > git reset
 <!--- }}} -->
 
+<!--- vim-scriptease {{{ -->
+# ----------------
+# [vim-scriptease]
+# ----------------
+(https://github.com/tpope/vim-scriptease)
+~/.vim/userautoload/toml/lazy.toml
+
+* 幫助撰寫 Vimscript 的輔助工具
+
+設定為 lazy 載入，在 ft=vim 時會自動載入，所以若不是編輯vim檔，可以
+:set ft=vim 來啟動它。隨後再回復原檔案型態。
+
++ --------
++ 主要功能
++ --------
+:PP pretty print. 沒有給參數時，就是一個 REPL 工具。
+    先 source %，把目前的緩衝區內定義的變數、函數讀進來。
+    輸入一個運算式，它求值後印出。
+    空白列結束離開。
+    可以呼叫全域函數 Func()，script 函數則使用 <SID>Func() 呼叫。
+    注意：它接受的是運算式，呼叫函數不需要使用 call。
+:Messages   把 messages 載入 quickfix list 並顯示視窗方便查看，:ccl 結束。
+:Verbose    把 verbose 命令的輸出放在 preview 視窗顯示，:pc 結束。
+:Time 命令  測量命令所花費的執行時間。
+
+K   使用 :help 查看游標所在 VimL 關鍵字。
+zS  顯示目前游標所在位置的語法群組名稱。
+g=  對選擇範圍求值後以結果取代之（數學計算很方便）。
+g== 整列當作運算式求值後以結果取代。
+
+:help scriptease
+<!--- }}} -->
+
 <!--- Misc {{{ -->
 # -----------------------------------------------------------------------
 # Misc 其他                                                        *Misc*
@@ -2136,6 +2188,9 @@ macOS:
 * 在目前編輯檔案所在目錄下產生tags檔案
 :execute "helptags " . expand("%:p:h")
 % - current file, p - path, h - header, t - tail
+
+* 產生全部tags檔案
+:helptags ALL
 
 * Insert mode:
   * ctrl + R : Insert text from a register
@@ -2188,8 +2243,16 @@ macOS:
   * :argdo update            更新儲存所有arg list的檔案(有改變的)
 
   * :bufdo 與argdo不同的是對所有的buffer動作，它可能是arg list的超集合
-            新增加或修改的檔案，只在buffer list中，而不會在arg list內
-  * :ls    顯示目前的buffer list
+           新增加或修改的檔案，只在buffer list中，而不會在arg list內
+           bufdo 的操作對象是所有工作階段的 buffers，而不只是目前分頁的可見
+           buffer。它與 windo 行為類似，遇到第一個錯誤立刻終止，並把游標留在
+           命令執行失敗的 buffer 裡。
+    :bufdo set fileformat=unix 設定所有 buffer 為 unix 檔案格式
+  * :windo cmd 在每個視窗裡執行指定指令 cmd。它的行動就像先來到頂端視窗(^Wt)
+               而後循環每個視窗並於其中執行指定指令（如同在每個視窗發出 :cmd）
+               它只在目前分頁中行動，若遇到任何因為 :cmd 所產生的錯誤，即停止
+               在產生錯誤的視窗，該視窗即成為新的目前視窗。
+    :windo %s/Math/MyMath/g    替換所有視窗內指定的字串。
 
 * filename-modifiers
   * %:p   - File name of current buffer with full path
@@ -2201,5 +2264,7 @@ macOS:
   * %<    - same as %:t:r
 
   :echo expand("%:p")
+
   :help ::p
+  :help filename-modifiers
 <!--- }}} -->

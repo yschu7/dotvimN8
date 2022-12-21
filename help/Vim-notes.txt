@@ -148,6 +148,8 @@ cw      Change word            3cw   Change 3 words
 25%     Go to the 25% of the buffer
 G       Go to the end of the buffer
 gg      Go to the top of the buffer
+
+:go n   Go to n byte in the buffer.
 <!--- }}} -->
 
 <!--- File Operations {{{ -->
@@ -158,9 +160,10 @@ gg      Go to the top of the buffer
 :w              Write file (save)
 :w!             Overwrite without confirmation
 :q              Quit
-:q!             Quit (discard all changes) or ZQ
-:wq!            Write & Quit
-:x              Exit (same as :wq or ZZ)
+:qa             Quit all windows 離開，適用於多視窗時。
+:q!             Quit (discard all changes) or ZQ 放棄所有修改，離開。
+:wq!            Write & Quit 一定會寫入檔案，即使檔案沒有異動。
+:x              Exit (same as :wq or ZZ) 檔案有異動才會寫入，否則直接離開。
 
 :w !sudo tee %  當編輯的檔案因權限問題無法正常寫入時，改用sudo tee方式寫入。
 :w newfile      Write to a file (但是當前的buffer名稱並未改變，與saveas不同)
@@ -2267,4 +2270,8 @@ g== 整列當作運算式求值後以結果取代。
 
   :help ::p
   :help filename-modifiers
+
+* Vim startup 啟動順序、選項
+  :help startup
+  :help startup-options
 <!--- }}} -->

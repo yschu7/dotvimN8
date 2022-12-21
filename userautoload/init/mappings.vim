@@ -13,9 +13,9 @@ nnoremap Y y$
 " https://stackoverflow.com/questions/3961859/how-to-copy-to-clipboard-in-vim
 " copy selected text to system clipboard
 if has("mac")
-  noremap <leader>y :w !pbcopy<CR><CR>
+  noremap <silent> <leader>y :w !pbcopy<CR><CR>
 elseif has("unix")
-  noremap <leader>y :w !xclip -i -sel c<CR><CR>
+  noremap <silent> <leader>y :w !xclip -i -sel c<CR><CR>
 endif
 
 " Create newlines without entering insert mode
@@ -45,10 +45,10 @@ nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(st
 inoremap <C-l> <C-x><C-l>
 
 " Scroll larger amounts with C-j / C-k
-nnoremap <C-j> 15gjzz
-nnoremap <C-k> 15gkzz
-vnoremap <C-j> 15gjzz
-vnoremap <C-k> 15gkzz
+nnoremap <silent> <C-j> 15gjzz
+nnoremap <silent> <C-k> 15gkzz
+vnoremap <silent> <C-j> 15gjzz
+vnoremap <silent> <C-k> 15gkzz
 
 " --------------------
 " Insert Mode Mappings
@@ -87,8 +87,8 @@ cnoremap w!! w !sudo tee % >/dev/null
 " yyp - copy the original command line
 nnoremap Q yyp<esc>!!$SHELL <cr>
 
-" Quickly switch to last buffer
-nnoremap <leader>, :e#<CR>
+" Quickly switch to last buffer (use default: Ctrl-^)
+"nnoremap <leader>, :e#<CR>
 
 " Underline the current line with '-'
 nnoremap <silent> <leader>ul :t.\|s/./-/\|:nohls<cr>
@@ -112,6 +112,9 @@ nnoremap <C-V>     v
 vnoremap    v   <C-V>
 vnoremap <C-V>     v
 
+" Search for visually highlighted text (From: VimTips)
+vnoremap <silent> // y/<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
+
 " Insert date
 inoreabbrev ddate <C-R>=strftime("%Y-%m-%d")<CR>
 
@@ -120,4 +123,3 @@ inoreabbrev ddate <C-R>=strftime("%Y-%m-%d")<CR>
 " -------------------
 nnoremap <Leader>pi :call dein#install()<CR>
 nnoremap <Leader>pu :call dein#update()<CR>
-

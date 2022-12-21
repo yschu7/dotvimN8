@@ -16,8 +16,6 @@ endif
 
 "set background=dark
 "colorscheme jellybeans
-"https://github.com/kristijanhusak/vim-hybrid-material
-"colorscheme hybrid_material
 "colorscheme gruvbox
 "colorscheme solarized8_high
 set background=dark
@@ -111,7 +109,7 @@ set formatoptions=crql
 set iskeyword+=\$,-   " Add extra characters that are valid parts of variables
 set nostartofline      " Don't go to the start of the line after some commands
 set scrolloff=2        " Keep two lines below the last line when scrolling
-set gdefault           " this makes search/replace global by default
+" set gdefault           " this makes search/replace global by default
 set switchbuf=useopen  " Switch to an existing buffer if one exists
 
 " ---------------

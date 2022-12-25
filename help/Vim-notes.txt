@@ -1,4 +1,4 @@
-*Vim-notes.txt*        Y.S. Chu's Vim Notes v 3.53
+*Vim-notes.txt*        Y.S. Chu's Vim Notes v 3.56
 
       __           _                 __      _
 /\_/\/ _\   /\   /(_)_ __ ___     /\ \ \___ | |_ ___  ___
@@ -90,9 +90,10 @@ Table of Contents                                           *VimNotes*
   2. vim plugins初次安裝步驟
       ```
       $ git clone git@github.com:yschu7/dotvimN8.git ~/.vim
-      $ curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+      $ wget https://raw.githubusercontent.com/Shougo/dein-installer.vim/master/installer.sh
       $ sh ./installer.sh ~/.vim/dein
-      依據使用 vim 或 neovim 回答後安裝，接下來執行第4、5點的符號連結設定，
+      依據使用 vim 或 neovim 回答後安裝，復原 ~/.vim 目錄下被更改的檔案，
+      接下來執行第4、5點的符號連結設定。
       首次啓動 vim 時會重新安裝所有的 plugins，第二次則會安裝 coc 的擴展。
       ```
   3. 更新plugins
@@ -165,10 +166,11 @@ gg      Go to the top of the buffer
 :wq!            Write & Quit 一定會寫入檔案，即使檔案沒有異動。
 :x              Exit (same as :wq or ZZ) 檔案有異動才會寫入，否則直接離開。
 
-:w !sudo tee %  當編輯的檔案因權限問題無法正常寫入時，改用sudo tee方式寫入。
+:w !sudo tee %  當編輯的檔案因權限問題無法寫入時，可改用sudo tee方式寫入。
 :w newfile      Write to a file (但是當前的buffer名稱並未改變，與saveas不同)
 :wq! newfile    Write to a file and force quit (通常用於寫到新檔案)
-:5,10w newfile  將5至10列內容寫入newfile
+
+:5,10w nfile    將5至10列內容寫入nfile
 :10,$w >> nfile 將10至最後一列內容附加到nfile
 
 :e filename     Edit a file (:edit open a new buffer)
@@ -242,10 +244,11 @@ Ctrl-R  Redo (undo-undo)
 
 Branched undo (branching undo history - timeline)
 使用Undo, Redo之後，如果之間有新的編輯改變，會產生一個新的undo分支。
-在Vim 7.0以前，舊的分支會被拋棄，7.0版以後所有undo分支都被保留。
 可以使用g-, g+跳動到其他時間點的分支，但下面的指令更直覺些。
+:undolist       顯示檔案改變的狀態地圖
 :earlier 10m    buffer回到稍早10分鐘前
 :later 10s      buffer往前10秒
+:help usr_32.txt
 
 Transform vim into hex editor: xxd 是一個外部命令
 :%!xxd      (hex mdoe)
@@ -266,6 +269,7 @@ Ctrl-D  deletes a tab at the start of the line
 Ctrl-V  inserts the next character verbatim
         (even if it's normally a control character)，通常用於插入控制字元
 Ctrl-W  deletes the word preceding the cursor
+Ctrl-U  刪除目前的列。
 Ctrl-O  takes you back to normal mode for one command, which is handy,
         e.g. to clean the rest of the line: ^OD
 
@@ -941,7 +945,7 @@ Block模式若要選擇包含多列到最後，而各列的結束位置不同時
 # Command Mode 命令模式                                     *CommandMode*
 # -----------------------------------------------------------------------
 
-使用Q命令進入editing mode(單列模式)，或:命令直接執行(ex-mode)
+使用Q/gQ命令進入editing mode(單列模式)，或:命令直接執行(ex-mode)
 使用:vi 後 visual返回
 
 + 範例：print or p 列印

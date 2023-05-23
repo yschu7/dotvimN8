@@ -1,4 +1,4 @@
-*Vim-notes.txt*        Y.S. Chu's Vim Notes v 3.57
+*Vim-notes.txt*        Y.S. Chu's Vim Notes v 3.59 (5/23/2023)
 
       __           _                 __      _
 /\_/\/ _\   /\   /(_)_ __ ___     /\ \ \___ | |_ ___  ___
@@ -1674,11 +1674,20 @@ $ man grep | col -b > grep.txt
 
 $ vim `grep -l 'test' *.c`         編輯所有含有'test'的C程式
 :args `grep -l 'test' *.c`
+                                 注意：上面命令需要倒引號括起來。
 
-Vim的內建grep (Linux會呼叫grep, Windows會呼叫findstr)
+Vim的grep (Linux會呼叫grep, Windows會呼叫findstr)
 :grep error *.c                    編輯含有'error'的C程式(只開啟第一個)
 :cnext or :cn                      下一個檔案
 :cprev or :cp                      上一個檔案
+macOS 上無法將結果放入Quickfix，可以使用cexpr，例如：
+:cexpr system('grep -rsni error *.c') | cw
+                                   cw: 只在有結果才開啟quickfix視窗
+設定了兩個命令：Grep、Lgrep 使用了 ripgrep(rg) 設定 grepprg。
+:Grep error *.c                    結果放入 quickfix
+:Lgrep error *.c                   結果放入 location list
+Vim的內建vimgrep（Vim本身的實作）
+:vimgrep error *.c                 可以縮寫為 :vim
 
 Vim的clientserver mode
 :echo has('clientserver')          檢查是否enable
@@ -2036,6 +2045,7 @@ token file: $HOME/.gist-vim, user file: $HOME/.gitconfig
 * iTerm2 配合的 [themes](https://github.com/tinted-theming/base16-iterm2)
 
 * :colorscheme base16-<TAB>   自動補全
+* :Colors 使用 FZF 選擇功能
 * :set cursorline or nocursorline
 * :set bg=dark or bg=light
 <!--- }}} -->
@@ -2114,7 +2124,8 @@ and extensions.
 Things you can do with fzf and Vim.
 顯示執行命令的結果於浮動視窗及preview
 
-:Files [Path]  執行 fzf 命令（如同 :FZF [Path]）後面加 ! 全螢幕版
+:Files [Path]  執行 fzf 命令（如同 :FZF [Path]）
+:Files! [Path] 以全螢幕方式執行 fzf
 :Ag 搜尋樣式   ag 搜尋結果 Alt-a 全選、Alt-d 全不選（Ag! 全螢幕版）
 :Rg 搜尋樣式   rg 搜尋結果 Alt-a 全選、Alt-d 全不選（Rg! 全螢幕版）
 :Colors        顯示配色方案於浮動視窗，按下 Enter 更改配色
@@ -2123,6 +2134,8 @@ Things you can do with fzf and Vim.
 :History:      顯示歷史命令
 :History/      顯示歷史搜尋命令
 :Helptags      顯示 vim 的所有輔助標籤
+:Commands      顯示 vim 定義的命令
+:Marks         顯示 vim 設定的marks
 
 <Ctrl-p>       執行fzf（:FZF 的映射）
 
@@ -2131,7 +2144,7 @@ Things you can do with fzf and Vim.
 Ctrl-t         以新 tab 方式打開檔案
 Ctrl-x、Ctrl-v 以水平視窗、垂直視窗方式打開檔案
 Ctrl-k、Ctrl-j 上一列、下一列
-Ctrl-c         放棄離開
+Ctrl-c、Ctrl-q 放棄離開
 Ctrl-f、Ctrl-b 上一頁、下一頁（由環境變數設定）
 
 設定環境變數：ctrl-f、ctrl-b 下一頁、上一頁
@@ -2264,6 +2277,7 @@ g== 整列當作運算式求值後以結果取代。
 
 * Argument Lists：相當於從vim指令傳入的參數列，在vim中也可以調整它
   * :args `find lib spec -name '*.rb'`    puts results into argument lists
+                                        注意：上面命令需要倒引號括起來。
   * :args                               show argument lists
   * :argdo :%s/Math/MyMath/ge | update  search & replace for each file in..
             argdo：對所有arg list內的檔案，執行同一組:ex指令

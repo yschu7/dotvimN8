@@ -12,3 +12,15 @@
 " Fixes common typos
 "command! W w
 "command! Q q
+
+" ripgrep Vim integration
+if executable("rg")
+  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+
+  command! -nargs=1 Grep
+  \   execute ':silent grep '.<q-args>
+  \ | execute ':redraw!'
+  command! -nargs=1 Lgrep execute ':silent lgrep '.<q-args>
+endif
+

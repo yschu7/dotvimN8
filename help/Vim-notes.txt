@@ -1,4 +1,4 @@
-*Vim-notes.txt*        Y.S. Chu's Vim Notes v 3.59 (5/23/2023)
+*Vim-notes.txt*        Y.S. Chu's Vim Notes v 3.6 (5/24/2023)
 
       __           _                 __      _
 /\_/\/ _\   /\   /(_)_ __ ___     /\ \ \___ | |_ ___  ___
@@ -567,9 +567,12 @@ h       Buffer is hidden (loaded but not visible)
 
 :help tabpage
 
-:tabe   開啓一個新的tab page (:tabedit or :tabnew)
-:tabe afile.txt 開一個新的tab page，開始編輯afile.txt
-:tabc   關閉當前的tab page
+:tabe   開啓一個新的tab page，沒有指定檔名 (:tabedit or :tabnew)。
+:tabe {file} 開一個新的tab page，開始編輯指定檔案。
+:tabf {file} 搜尋到檔案後，放入新的tab page，開始編輯 (:tabfind)。
+:tabc   關閉當前的tab page (:tabclose)。
+:tabo   除了目前的tab page 以外，關閉所有其他tab page (:tabonly)。
+        其他如:bd 與 Ctrl-W c 也可以關閉目前 tab page。
 
 :tabn   Next Tab Page
 :tabp   Previous Tab Page
@@ -581,6 +584,13 @@ h       Buffer is hidden (loaded but not visible)
 gt      往下一個tab page移動
 gT      往上一個tab page移動
 4gt     直接前往第4個tab page
+
+安排
+:tab ball         重安排：將每個buffer都分別對應一個tab page。
+:tab drop {file}  開啟檔案並放入tab page，或將已開啟的檔案放入tab page。
+:tab split [file] 開啟檔案並放入tab page，或將目前視窗放入tab page。
+Ctrl-W T          將目前視窗放入tab page。
+Ctrl-W gf         開啟游標所在檔案並放入tab page。
 <!--- }}} -->
 
 <!--- Motion {{{ -->

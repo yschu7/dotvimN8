@@ -155,3 +155,10 @@ merged = '0'
 rev = 'master'
 hook_add = 'source ~/.vim/userautoload/conf/coc-config.vim'
 
+[[plugins]]
+repo = 'mattn/webapi-vim'
+
+[[plugins]]
+repo = 'mattn/vim-gist'
+depends = 'webapi-vim'
+

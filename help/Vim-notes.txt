@@ -1,4 +1,4 @@
-*Vim-notes.txt*        Y.S. Chu's Vim Notes v 3.62 (6/13/2023)
+*Vim-notes.txt*        Y.S. Chu's Vim Notes v 3.63 (6/15/2023)
 
       __           _                 __      _
 /\_/\/ _\   /\   /(_)_ __ ___     /\ \ \___ | |_ ___  ___
@@ -56,14 +56,16 @@ Table of Contents                                           *VimNotes*
 * Learn Vimscript the Hard Way
   (http://learnvimscriptthehardway.stevelosh.com/)
   (https://www.kancloud.cn/kancloud/learn-vimscript-the-hard-way/49321) 中文版
-* Help Web version
-  (http://blog.xuite.net/yschu/wretch/313272957)
 * Vim Videos
   (http://derekwyatt.org/vim/tutorials/)
 * Nettuts+ Vim
   (http://net.tutsplus.com/articles/web-roundups/25-vim-tutorials-screencasts-and-resources)
 * VimAwesome
   (https://vimawesome.com/)
+* Gatting started with vim
+  (https://riptutorial.com/vim)
+* Vim help files 輔助文件線上版本
+  (https://vimhelp.org/)
 
 * ,h  開啟本檔  關閉 :bd
 * ,v  開啓 ~/.vimrc
@@ -344,7 +346,7 @@ noremap <down> <nop>
 # -----------------------------------------------------------------------
 
 有些選項設定值爲on、off，例如：
-:set list            Turn a boolean value on (顯示TAB,EOL)
+:set list            Turn a boolean value on (畫面顯示空白,TAB,EOL)
 :set nolist          Turn a boolean value off
 :set list?           Show current value 查詢目前的設定
 :set list&           Reset to default value
@@ -1420,7 +1422,7 @@ Ctrl-p         previous item in menu
 :h new-omni-completion  (查看目前支援多少種語言)
 
 除了用complete=k/path..，也可用dict設定，這裡的words指向字典檔案。
-:set dictinoary=/usr/share/dict/words,/home/yschu/words
+:set dictinoary+=/usr/share/dict/words
 
 當complete選項設定含kspell時，如果拼字檢查打開，自動完成會參考字典。
 :set spell     enable dictionary spell checking
@@ -1779,6 +1781,7 @@ $ npm install -g neovim
 Julia 程式語言支援
 
 F7: LaTextoUnicode#Toggle()
+    當它啟動時，輸入 \mu\^3 會自動顯示 μ³，不需要你在完成選單中選擇。
 
 :h julia-vim
 :h julia-vim-L2U
@@ -2254,7 +2257,7 @@ g== 整列當作運算式求值後以結果取代。
   * ctrl + D : Dedent
   * ctrl + W : Delete word
   * Completion:
-    * ctrl + p : search backward for matching word compltion
+    * ctrl + p : search backward for matching word completion
     * ctrl + n : search forward
     * ctrl + x ctrl + ] : Tag completion
     * ctlr + x ctrl + F : Filename completion
@@ -2278,7 +2281,7 @@ g== 整列當作運算式求值後以結果取代。
 * F4:
 * F5: Run
 * F6:
-* F7: LaTextoUnicode toggle
+* F7: LaTextoUnicode toggle（julia only）
 * F8:
 * F9:
 

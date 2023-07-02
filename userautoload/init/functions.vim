@@ -186,9 +186,23 @@ nnoremap <silent><leader>Z  :ZoomToggle<CR>
 " --------------------------------------------------------
 " To highlight all character that are in virtual column 80
 " --------------------------------------------------------
-function! s:HighLight80()
-    highlight column80 term=bold ctermfg=red guifg=red
-    match column80 /\%<81v.\%>80v/
+" function! s:HighLight80()
+"     highlight column80 term=bold ctermfg=red guifg=red
+"     match column80 /\%<81v.\%>80v/
+" endfunction
+" command! HL80 call s:HighLight80()
+
+" ---------------------------------------------------------------
+" How to make <C-X><C-K> work with 'dictionary' and 'spell' unset
+" ---------------------------------------------------------------
+" From https://normalmo.de/posts/enabling-dictionary-completion-everywhere/
+inoremap <expr> <C-X><C-K> !empty(&dictionary) <bar><bar> &spell ? '<C-X><C-K>' : '<C-O>:call <SID>dictionary_complete_nospell()<CR><C-X><C-K>'
+
+function! s:dictionary_complete_nospell() abort
+  set spell
+  augroup dictionary_complete_nospell
+    autocmd!
+    autocmd CompleteDone <buffer> ++once set nospell
+  augroup END
 endfunction
-command! HL80 call s:HighLight80()
 

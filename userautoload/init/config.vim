@@ -33,7 +33,9 @@ if exists('$SUDO_USER')
 else
   set backupdir=~/.vim/.backup// " Double // causes backups to use full file path
   set directory=~/.vim/.tmp//
-  set spellfile=~/.vim/spell/custom.en.utf-8.add
+  set spellfile=~/.vim/spell/en.utf-8.add  " spell checking file
+  set spelllang=en,cjk           " Spell languages, prevent check Asia langs
+  set spellsuggest=best,20       " Show 20 spell checking candidates at most
   " Persistent Undo
   if has('persistent_undo')
     set undofile

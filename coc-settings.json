@@ -32,6 +32,12 @@
       "filetypes": ["ruby"]
     }
   },
+  "languageserver": {
+    "nim": {
+      "command": "nimlsp",
+      "filetypes": ["nim"]
+    }
+  },
   "go.goplsOptions":{
     "completeUnimported": true 
   },

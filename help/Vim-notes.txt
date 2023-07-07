@@ -90,7 +90,7 @@ Table of Contents                                           *VimNotes*
 * vim plugin的安裝與維護：
   1. 使用 |coc| plugin 必須先安裝 NodeJS。
   2. vim plugins初次安裝步驟
-      $ git clone git@github.com:yschu7/dotvimN8.git ~/.vim
+      $ git clone https://github.com/yschu7/dotvimN8.git ~/.vim
       $ wget https://raw.githubusercontent.com/Shougo/dein-installer.vim/master/installer.sh
       $ chmod +x installer.sh
       $ sh ./installer.sh ~/.vim/dein

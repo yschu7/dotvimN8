@@ -152,6 +152,8 @@ if has("autocmd")
 
     autocmd FileType go nnoremap <buffer><F5> <ESC>:WriteBufferIfNecessary<CR>:!go run %<CR>
     autocmd FileType go inoremap <buffer><F5> <ESC>:WriteBufferIfNecessary<CR>:!go run %<CR>
+    autocmd FileType nim nnoremap <buffer><F5> <ESC>:WriteBufferIfNecessary<CR>:!nim c -r --verbosity:0 %<CR>
+    autocmd FileType nim inoremap <buffer><F5> <ESC>:WriteBufferIfNecessary<CR>:!nim c -r --verbosity:0 %<CR>
 
     " [Buffer-Local](http://learnvimscriptthehardway.stevelosh.com/chapters/11.html)
     " tmux run script (Split screen to show result)

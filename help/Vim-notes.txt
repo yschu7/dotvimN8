@@ -1,4 +1,4 @@
-*Vim-notes.txt*        Y.S. Chu's Vim Notes v 3.63 (6/15/2023)
+*Vim-notes.txt*        Y.S. Chu's Vim Notes v 3.64 (7/20/2023)
 
       __           _                 __      _
 /\_/\/ _\   /\   /(_)_ __ ___     /\ \ \___ | |_ ___  ___
@@ -1785,6 +1785,26 @@ F7: LaTextoUnicode#Toggle()
 
 :h julia-vim
 :h julia-vim-L2U
+<!--- }}} -->
+
+<!--- codi.vim {{{ -->
+# ----------
+# [codi.vim]
+# ----------
+(https://github.com/metakirby5/codi.vim/tree/master)
+~/.vim/userautoload/toml/lazy.toml
+
+* 支援多種程式語言的 REPL
+
+:Codi [filetype]    啟動 Codi 對目前的 buffer。可以選擇指定檔案型態。
+:Codi!              停止 Codi。
+:Codi!! [filetype]  對目前的 buffer，切換 Codi 開/關。可以選擇指定檔案型態。
+
+:CodiNew [filetype] 新建一個新的草稿 buffer，Codi 已經啟動。
+                    檔案型態若未指定，則預設與目前 buffer 型態相同。
+
+:CodiSelect     列出支援的程式語言選單，讓你選擇。
+:CodiExpand     如果當前列的輸出超過一行以上，讓它以 pop-up 視窗顯示多行內容。
 <!--- }}} -->
 
 <!--- Surround {{{ -->

@@ -38,3 +38,9 @@ on_cmd = ['FIGlet']
 repo = 'tpope/vim-scriptease'
 on_ft = ['vim']
 
+[[plugins]]
+repo = 'alaviss/nim.nvim'
+
+[[plugins]]
+repo = 'metakirby5/codi.vim'
+

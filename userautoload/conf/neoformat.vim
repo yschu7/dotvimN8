@@ -1,23 +1,5 @@
 " Neoformat
 
-" Run a formatter on save
-" augroup fmt
-"   autocmd!
-"   autocmd BufWritePre * undojoin | Neoformat
-" augroup END
-
-" Python
-let g:neoformat_python_yapf = {
-            \ 'exe': 'yapf',
-            \ }
-let g:neoformat_enabled_python = ['yapf']
-
-" Csharp
-let g:neoformat_python_csharp = {
-            \ 'exe': 'dotnet-csharpier',
-            \ }
-let g:neoformat_enabled_csharp = ['dotnet-csharpier']
-
 " Enable alignment
 let g:neoformat_basic_format_align = 1
 

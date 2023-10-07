@@ -24,7 +24,7 @@ if has("autocmd")
     autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 
     " Fix trailing whitespace in my most used programming langauges
-    autocmd BufWritePre *.py,*.coffee,*.rb,*.erb,*.swift,*.scss,*.vim,
+    autocmd BufWritePre *.py,*.coffee,*.rb,*.erb,*.swift,*.scss,*.css,*.vim,
           \*.php,*.js,*.sql,*.plsql,*.c,*.cpp,*.java,*.kt,*.go,*.jl
           \ silent! :StripTrailingWhiteSpace
 
@@ -79,6 +79,8 @@ if has("autocmd")
     autocmd FileType ruby  setlocal foldmethod=syntax
     autocmd FileType vim   setlocal foldmethod=marker
     autocmd FileType css   setlocal foldmethod=indent shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType css   setlocal iskeyword+=-
+    autocmd FileType scss  setlocal iskeyword+=@-@
 
     au FileType python,swift,java,kotlin setlocal fdm=indent sw=4 ts=4 sts=4
 

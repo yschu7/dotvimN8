@@ -9,6 +9,10 @@ let g:coc_global_extensions = [
 \ 'coc-sh',
 \ 'coc-highlight',
 \ 'coc-clangd',
+\ 'coc-tsserver',
+\ 'coc-css',
+\ 'coc-html',
+\ 'coc-json',
 \ ]
 " dependency:
 " go install github.com/segmentio/golines@latest

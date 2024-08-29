@@ -2164,14 +2164,16 @@ Things you can do with fzf and Vim.
 :Files! [Path] 以全螢幕方式執行 fzf
 :Ag 搜尋樣式   ag 搜尋結果 Alt-a 全選、Alt-d 全不選（Ag! 全螢幕版）
 :Rg 搜尋樣式   rg 搜尋結果 Alt-a 全選、Alt-d 全不選（Rg! 全螢幕版）
-:Colors        顯示配色方案於浮動視窗，按下 Enter 更改配色
-:Buffers       顯示所有buffers
+:Colors        顯示配色方案於浮動視窗，按下 Enter 更改配色。
+:Buffers       顯示所有buffers，按下 Enter 切換。
 :History       顯示舊檔案
 :History:      顯示歷史命令
 :History/      顯示歷史搜尋命令
 :Helptags      顯示 vim 的所有輔助標籤
-:Commands      顯示 vim 定義的命令
+:Commands      顯示 vim 定義的命令，按下 Enter 執行。
 :Marks         顯示 vim 設定的marks
+:BLines        在目前編輯檔案中，使用 fzf 進行搜尋。
+:Snippets      必須搭配 UltiSnips 使用。
 
 <Ctrl-p>       執行fzf（:FZF 的映射）
 

@@ -83,7 +83,7 @@ if has("autocmd")
     autocmd FileType scss  setlocal iskeyword+=@-@
 
     au FileType python,swift,java,kotlin setlocal fdm=indent sw=4 ts=4 sts=4
-    au FileType cs,javascript,html setlocal fdm=indent sw=4 ts=4 sts=4
+    au FileType c,cs,javascript,html setlocal fdm=indent sw=4 ts=4 sts=4
 
     au FileType markdown setlocal fdm=marker ts=4 sw=4 sts=4 nospell
     au FileType go setlocal fdm=indent ts=4 sw=4 sts=0 noexpandtab

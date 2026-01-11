@@ -14,12 +14,11 @@ else
   set termguicolors          " True color support in nvim
 endif
 
-"set background=dark
-"colorscheme jellybeans
 "colorscheme gruvbox
-"colorscheme solarized8_high
+"interactive colorscheme setting
+":Colors
 set background=dark
-autocmd vimenter * ++nested colorscheme solarized8_high
+autocmd vimenter * ++nested colorscheme base16-solarized-dark
 
 " -----------------------------
 " File Locations

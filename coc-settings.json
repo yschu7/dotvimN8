@@ -44,7 +44,7 @@
   "coc.preferences.colorSupport": true,
   "codeLens.enable": true,
   "solargraph.useBundler": false,
-  "solargraph.commandPath": "~/.rbenv/shims/solargraph",
+  "solargraph.commandPath": "solargraph",
   "solargraph.formatting": true,
   "solargraph.diagnostics": false,
   "solargraph.checkGemVersion": true
